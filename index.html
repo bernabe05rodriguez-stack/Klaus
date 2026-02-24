@@ -251,11 +251,16 @@
         }
 
         .hero-logo {
-            width: 100px;
+            width: 140px;
             height: auto;
-            border-radius: 20px;
             margin-bottom: 2rem;
-            filter: drop-shadow(0 0 40px rgba(99, 102, 241, 0.3));
+            filter: drop-shadow(0 0 40px rgba(99, 102, 241, 0.4)) drop-shadow(0 0 80px rgba(6, 182, 212, 0.2));
+            animation: logoFloat 5s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.03); }
         }
 
         .hero h1 {
@@ -568,7 +573,6 @@
             overflow: hidden;
             border: 1px solid var(--border-light);
             background: var(--bg-card);
-            aspect-ratio: 16 / 10;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             transition: transform 0.4s, box-shadow 0.4s;
         }
@@ -613,336 +617,20 @@
             height: calc(100% - 38px);
             position: relative;
             overflow: hidden;
+            background: var(--bg-card);
         }
 
-        /* Mascotitas preview */
-        .preview-mascotitas {
-            background: linear-gradient(135deg, #1B3C59 0%, #2d5a80 100%);
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem;
-        }
-
-        .preview-mascotitas .mock-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .preview-mascotitas .mock-logo {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #F5EFE0;
-        }
-
-        .preview-mascotitas .mock-search {
-            width: 40%;
-            height: 22px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-        }
-
-        .preview-mascotitas .mock-hero {
-            background: rgba(245, 239, 224, 0.08);
-            border-radius: 10px;
-            padding: 1.25rem;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .preview-mascotitas .mock-hero-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #F5EFE0;
-            margin-bottom: 0.5rem;
-        }
-
-        .preview-mascotitas .mock-hero-btn {
-            display: inline-block;
-            padding: 4px 16px;
-            background: #8B5E3C;
-            color: #F5EFE0;
-            font-size: 0.6rem;
-            border-radius: 6px;
-            font-weight: 600;
-        }
-
-        .preview-mascotitas .mock-products {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
-            flex: 1;
-        }
-
-        .preview-mascotitas .mock-product {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            padding: 0.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .preview-mascotitas .mock-product-img {
+        .screenshot-img {
             width: 100%;
-            aspect-ratio: 1;
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 6px;
-        }
-
-        .preview-mascotitas .mock-product-name {
-            font-size: 0.5rem;
-            color: #F5EFE0;
-            font-weight: 600;
-        }
-
-        .preview-mascotitas .mock-product-price {
-            font-size: 0.55rem;
-            color: #10B981;
-            font-weight: 700;
-        }
-
-        .preview-mascotitas .mock-wa {
-            position: absolute;
-            bottom: 12px;
-            right: 12px;
-            width: 36px;
-            height: 36px;
-            background: #25D366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-        }
-
-        .preview-mascotitas .mock-wa svg {
-            width: 20px;
-            height: 20px;
-            fill: #fff;
-        }
-
-        /* Hermes preview */
-        .preview-hermes {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            display: flex;
-            padding: 1rem;
-            gap: 0.75rem;
-        }
-
-        .preview-hermes .mock-sidebar {
-            width: 30%;
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 8px;
-            padding: 0.75rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        .preview-hermes .mock-sidebar-title {
-            font-size: 0.6rem;
-            font-weight: 700;
-            color: #A855F7;
-            margin-bottom: 0.25rem;
-        }
-
-        .preview-hermes .mock-device {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 6px;
-            border-radius: 6px;
-            background: rgba(168, 85, 247, 0.1);
-        }
-
-        .preview-hermes .mock-device-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #10B981;
-        }
-
-        .preview-hermes .mock-device-name {
-            font-size: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        .preview-hermes .mock-main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .preview-hermes .mock-controls {
-            display: flex;
-            gap: 0.4rem;
-        }
-
-        .preview-hermes .mock-btn-start {
-            padding: 4px 12px;
-            background: #10B981;
-            color: #fff;
-            font-size: 0.5rem;
-            font-weight: 700;
-            border-radius: 4px;
-        }
-
-        .preview-hermes .mock-btn-stop {
-            padding: 4px 12px;
-            background: #EF4444;
-            color: #fff;
-            font-size: 0.5rem;
-            font-weight: 700;
-            border-radius: 4px;
-        }
-
-        .preview-hermes .mock-log {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 6px;
-            padding: 0.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-            overflow: hidden;
-        }
-
-        .preview-hermes .mock-log-line {
-            font-size: 0.45rem;
-            font-family: monospace;
-            display: flex;
-            gap: 6px;
-        }
-
-        .preview-hermes .mock-log-time {
-            color: var(--text-dim);
-        }
-
-        .preview-hermes .mock-log-ok {
-            color: #10B981;
-        }
-
-        .preview-hermes .mock-log-warn {
-            color: #F59E0B;
-        }
-
-        .preview-hermes .mock-log-info {
-            color: #60A5FA;
-        }
-
-        .preview-hermes .mock-progress {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 6px;
-            padding: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .preview-hermes .mock-progress-bar {
-            flex: 1;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .preview-hermes .mock-progress-fill {
-            width: 68%;
             height: 100%;
-            background: linear-gradient(90deg, #A855F7, #6366F1);
-            border-radius: 3px;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            transition: transform 0.6s ease;
         }
 
-        .preview-hermes .mock-progress-text {
-            font-size: 0.5rem;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        /* CarScraper preview */
-        .preview-carscraper {
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-            display: flex;
-            flex-direction: column;
-            padding: 1rem;
-        }
-
-        .preview-carscraper .mock-topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.75rem;
-        }
-
-        .preview-carscraper .mock-cs-logo {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .preview-carscraper .mock-cs-logo span {
-            color: #dc2626;
-        }
-
-        .preview-carscraper .mock-filters {
-            display: flex;
-            gap: 0.4rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .preview-carscraper .mock-filter {
-            padding: 3px 10px;
-            background: rgba(220, 38, 38, 0.15);
-            border: 1px solid rgba(220, 38, 38, 0.3);
-            border-radius: 6px;
-            font-size: 0.5rem;
-            color: #fca5a5;
-            font-weight: 600;
-        }
-
-        .preview-carscraper .mock-table {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .preview-carscraper .mock-table-header {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            padding: 6px 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .preview-carscraper .mock-th {
-            font-size: 0.45rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .preview-carscraper .mock-table-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            padding: 6px 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .preview-carscraper .mock-td {
-            font-size: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        .preview-carscraper .mock-td.price {
-            color: #10B981;
-            font-weight: 600;
+        .project-preview:hover .screenshot-img {
+            transform: scale(1.03);
         }
 
         /* Project info */
@@ -1424,10 +1112,6 @@
             .hero h1 {
                 font-size: 2rem;
             }
-
-            .preview-mascotitas .mock-products {
-                grid-template-columns: repeat(2, 1fr);
-            }
         }
     </style>
 </head>
@@ -1437,7 +1121,7 @@
     <nav>
         <div class="nav-inner">
             <a href="#" class="nav-brand">
-                <img src="logo-optimized.png" alt="Klaus">
+                <img src="logo-nav.png" alt="Klaus">
                 KLAUS
             </a>
             <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')" aria-label="Menu">
@@ -1462,7 +1146,7 @@
                 <span class="dot"></span>
                 Disponibles para nuevos proyectos
             </div>
-            <img src="logo-optimized.png" alt="Klaus" class="hero-logo">
+            <img src="logo-hero.png" alt="Klaus" class="hero-logo">
             <h1>Software que<br><span class="gradient-text">resuelve problemas</span></h1>
             <p>Desarrollamos soluciones a medida: plataformas web, automatizaciones y herramientas que transforman la forma en que trabajas.</p>
             <div class="hero-actions">
@@ -1577,35 +1261,11 @@
                             <div class="browser-dot green"></div>
                             <div class="browser-url">mascotitas.online</div>
                         </div>
-                        <div class="project-screenshot preview-mascotitas">
-                            <div class="mock-nav">
-                                <div class="mock-logo">MASCOTITAS</div>
-                                <div class="mock-search"></div>
-                            </div>
-                            <div class="mock-hero">
-                                <div class="mock-hero-title">Alimentos para tu mascota</div>
-                                <div class="mock-hero-btn">Ver Catalogo</div>
-                            </div>
-                            <div class="mock-products">
-                                <div class="mock-product">
-                                    <div class="mock-product-img"></div>
-                                    <div class="mock-product-name">Royal Canin</div>
-                                    <div class="mock-product-price">$12.500</div>
-                                </div>
-                                <div class="mock-product">
-                                    <div class="mock-product-img"></div>
-                                    <div class="mock-product-name">ProPlan</div>
-                                    <div class="mock-product-price">$9.800</div>
-                                </div>
-                                <div class="mock-product">
-                                    <div class="mock-product-img"></div>
-                                    <div class="mock-product-name">Excellent</div>
-                                    <div class="mock-product-price">$7.200</div>
-                                </div>
-                            </div>
-                            <div class="mock-wa">
-                                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                            </div>
+                        <div class="project-screenshot">
+                            <picture>
+                                <source srcset="screenshot-mascotitas.webp" type="image/webp">
+                                <img src="screenshot-mascotitas.jpg" alt="Mascotitas - Tienda online de alimentos para mascotas" class="screenshot-img" loading="lazy">
+                            </picture>
                         </div>
                     </div>
                     <div class="project-info">
@@ -1651,40 +1311,11 @@
                             <div class="browser-dot green"></div>
                             <div class="browser-url">Hermes v8 - Desktop App</div>
                         </div>
-                        <div class="project-screenshot preview-hermes">
-                            <div class="mock-sidebar">
-                                <div class="mock-sidebar-title">Dispositivos</div>
-                                <div class="mock-device">
-                                    <div class="mock-device-dot"></div>
-                                    <div class="mock-device-name">Moto G15 #1</div>
-                                </div>
-                                <div class="mock-device">
-                                    <div class="mock-device-dot"></div>
-                                    <div class="mock-device-name">Moto G05 #2</div>
-                                </div>
-                                <div class="mock-device">
-                                    <div class="mock-device-dot" style="background:#F59E0B"></div>
-                                    <div class="mock-device-name">Samsung A14</div>
-                                </div>
-                            </div>
-                            <div class="mock-main">
-                                <div class="mock-controls">
-                                    <div class="mock-btn-start">INICIAR</div>
-                                    <div class="mock-btn-stop">DETENER</div>
-                                </div>
-                                <div class="mock-log">
-                                    <div class="mock-log-line"><span class="mock-log-time">14:32:01</span> <span class="mock-log-ok">OK Mensaje enviado a +5492614...</span></div>
-                                    <div class="mock-log-line"><span class="mock-log-time">14:32:05</span> <span class="mock-log-ok">OK Llamada completada +5492617...</span></div>
-                                    <div class="mock-log-line"><span class="mock-log-time">14:32:08</span> <span class="mock-log-warn">WARN Timeout en dispositivo #3</span></div>
-                                    <div class="mock-log-line"><span class="mock-log-time">14:32:12</span> <span class="mock-log-info">INFO Reintentando conexion...</span></div>
-                                    <div class="mock-log-line"><span class="mock-log-time">14:32:15</span> <span class="mock-log-ok">OK Reconectado dispositivo #3</span></div>
-                                    <div class="mock-log-line"><span class="mock-log-time">14:32:18</span> <span class="mock-log-ok">OK Mensaje enviado a +5492613...</span></div>
-                                </div>
-                                <div class="mock-progress">
-                                    <div class="mock-progress-bar"><div class="mock-progress-fill"></div></div>
-                                    <div class="mock-progress-text">68%</div>
-                                </div>
-                            </div>
+                        <div class="project-screenshot">
+                            <picture>
+                                <source srcset="screenshot-hermes.webp" type="image/webp">
+                                <img src="screenshot-hermes.jpg" alt="Hermes - Sistema de automatización WhatsApp" class="screenshot-img" loading="lazy">
+                            </picture>
                         </div>
                     </div>
                     <div class="project-info">
@@ -1725,47 +1356,11 @@
                             <div class="browser-dot green"></div>
                             <div class="browser-url">redhawk-carscraper.easypanel.host</div>
                         </div>
-                        <div class="project-screenshot preview-carscraper">
-                            <div class="mock-topbar">
-                                <div class="mock-cs-logo">Car<span>Scraper</span></div>
-                            </div>
-                            <div class="mock-filters">
-                                <div class="mock-filter">Subastas</div>
-                                <div class="mock-filter">USA Used</div>
-                                <div class="mock-filter">Germany</div>
-                            </div>
-                            <div class="mock-table">
-                                <div class="mock-table-header">
-                                    <div class="mock-th">Vehiculo</div>
-                                    <div class="mock-th">Anio</div>
-                                    <div class="mock-th">KM</div>
-                                    <div class="mock-th">Precio</div>
-                                </div>
-                                <div class="mock-table-row">
-                                    <div class="mock-td">BMW 320i Sedan</div>
-                                    <div class="mock-td">2022</div>
-                                    <div class="mock-td">45.000</div>
-                                    <div class="mock-td price">$28.500</div>
-                                </div>
-                                <div class="mock-table-row">
-                                    <div class="mock-td">Audi A4 Avant</div>
-                                    <div class="mock-td">2021</div>
-                                    <div class="mock-td">62.000</div>
-                                    <div class="mock-td price">$31.200</div>
-                                </div>
-                                <div class="mock-table-row">
-                                    <div class="mock-td">Mercedes C300</div>
-                                    <div class="mock-td">2023</div>
-                                    <div class="mock-td">18.000</div>
-                                    <div class="mock-td price">$42.800</div>
-                                </div>
-                                <div class="mock-table-row">
-                                    <div class="mock-td">VW Golf GTI</div>
-                                    <div class="mock-td">2020</div>
-                                    <div class="mock-td">78.000</div>
-                                    <div class="mock-td price">$19.900</div>
-                                </div>
-                            </div>
+                        <div class="project-screenshot">
+                            <picture>
+                                <source srcset="screenshot-carscraper.webp" type="image/webp">
+                                <img src="screenshot-carscraper.jpg" alt="CarScraper - Dashboard de scraping automotriz" class="screenshot-img" loading="lazy">
+                            </picture>
                         </div>
                     </div>
                     <div class="project-info">
@@ -1867,7 +1462,7 @@
     <footer>
         <div class="footer-inner">
             <div class="footer-brand">
-                <img src="logo-optimized.png" alt="Klaus">
+                <img src="logo-footer.png" alt="Klaus">
                 <span>KLAUS</span>
             </div>
             <div class="footer-links">
