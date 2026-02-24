@@ -344,6 +344,25 @@
             height: 18px;
         }
 
+        .hero-availability {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .hero-availability .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: blink 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
         /* ═══ SCROLL INDICATOR ═══ */
         .scroll-indicator {
             position: absolute;
@@ -1142,11 +1161,6 @@
             <div class="grid-bg"></div>
         </div>
         <div class="hero-content">
-            <div class="hero-badge">
-                <span class="dot"></span>
-                Disponibles para nuevos proyectos
-            </div>
-            <img src="logo-hero.png" alt="Klaus" class="hero-logo">
             <h1>Software que<br><span class="gradient-text">resuelve problemas</span></h1>
             <p>Desarrollamos soluciones a medida: plataformas web, automatizaciones y herramientas que transforman la forma en que trabajas.</p>
             <div class="hero-actions">
@@ -1159,6 +1173,7 @@
                     Hablemos
                 </a>
             </div>
+            <p class="hero-availability"><span class="dot"></span> Disponibles para nuevos proyectos</p>
         </div>
         <div class="scroll-indicator">
             <div class="mouse"></div>
