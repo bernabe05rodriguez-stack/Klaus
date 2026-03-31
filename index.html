@@ -39,7 +39,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after {
             margin: 0;
@@ -48,70 +48,55 @@
         }
 
         :root {
-            --primary: #6366F1;
-            --primary-light: #818CF8;
-            --primary-dark: #4F46E5;
-            --accent: #06B6D4;
-            --accent-light: #22D3EE;
-            --green: #10B981;
-            --amber: #F59E0B;
-            --rose: #F43F5E;
-            --bg-dark: #0B1120;
-            --bg-section: #0F172A;
-            --bg-card: #1E293B;
-            --bg-card-hover: #263548;
-            --text: #F1F5F9;
-            --text-secondary: #CBD5E1;
-            --text-muted: #94A3B8;
-            --text-dim: #64748B;
-            --border: #1E293B;
-            --border-light: #334155;
-            --glow-primary: rgba(99, 102, 241, 0.15);
-            --glow-accent: rgba(6, 182, 212, 0.12);
+            --bg: #0a0a0a;
+            --bg-raised: #111111;
+            --bg-surface: #181818;
+            --border: rgba(255,255,255,0.08);
+            --border-hover: rgba(255,255,255,0.15);
+            --text: #ececec;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666;
+            --accent: #c8ff00;
+            --accent-dim: rgba(200,255,0,0.12);
         }
 
         html {
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: var(--bg-dark);
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
             color: var(--text);
-            line-height: 1.7;
-            overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* ═══ SCROLLBAR ═══ */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+        }
 
-        /* ═══ NAVIGATION ═══ */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+        /* ── NAV ── */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            z-index: 1000;
-            background: rgba(11, 17, 32, 0.8);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: background 0.3s, box-shadow 0.3s;
-        }
-
-        nav.scrolled {
-            background: rgba(11, 17, 32, 0.95);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            background: rgba(10,10,10,0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
         }
 
         .nav-inner {
-            max-width: 1200px;
+            max-width: 1120px;
             margin: 0 auto;
-            padding: 0.875rem 2rem;
+            padding: 0 2rem;
+            height: 64px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -120,587 +105,375 @@
         .nav-brand {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             text-decoration: none;
             color: var(--text);
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: 3px;
         }
 
         .nav-brand img {
-            height: 48px;
+            height: 36px;
             width: auto;
-            border-radius: 8px;
+            border-radius: 6px;
+        }
+
+        .nav-brand span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 2px;
         }
 
         .nav-links {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.25rem;
             list-style: none;
             align-items: center;
         }
 
         .nav-links a {
-            color: var(--text-muted);
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: color 0.3s, background 0.3s;
+            padding: 0.5rem 0.875rem;
+            border-radius: 6px;
+            transition: color 0.2s;
         }
 
         .nav-links a:hover {
             color: var(--text);
-            background: rgba(255, 255, 255, 0.05);
         }
 
-        .nav-links .nav-cta {
-            color: #fff;
-            background: var(--primary);
-            font-weight: 600;
-            padding: 0.5rem 1.25rem;
+        .nav-cta {
+            color: var(--bg) !important;
+            background: var(--accent);
+            font-weight: 600 !important;
+            padding: 0.5rem 1.25rem !important;
+            border-radius: 6px;
+            transition: opacity 0.2s !important;
         }
 
-        .nav-links .nav-cta:hover {
-            background: var(--primary-dark);
+        .nav-cta:hover {
+            opacity: 0.85;
+            color: var(--bg) !important;
         }
 
         .menu-toggle {
             display: none;
             background: none;
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border);
             color: var(--text);
             font-size: 1.25rem;
             cursor: pointer;
             padding: 0.4rem 0.6rem;
-            border-radius: 8px;
-            transition: background 0.3s;
+            border-radius: 6px;
         }
 
-        .menu-toggle:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* ═══ HERO ═══ */
+        /* ── HERO ── */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
             padding: 8rem 2rem 6rem;
             position: relative;
-            overflow: hidden;
         }
 
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-        }
-
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
-            animation: heroPulse 6s ease-in-out infinite alternate;
-        }
-
-        .hero-bg::after {
-            content: '';
-            position: absolute;
-            bottom: -20%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 70%);
-            animation: heroPulse 8s ease-in-out 2s infinite alternate;
-        }
-
-        @keyframes heroPulse {
-            0% { transform: translateX(-50%) scale(1); }
-            100% { transform: translateX(-50%) scale(1.15); }
-        }
-
-        .grid-bg {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
+        .hero-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 1rem;
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--primary-light);
-            margin-bottom: 2rem;
-            letter-spacing: 0.5px;
         }
 
-        .hero-badge .dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--green);
-            animation: blink 2s ease-in-out infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        .hero-logo {
-            width: 140px;
-            height: auto;
-            margin-bottom: 2rem;
-            filter: drop-shadow(0 0 40px rgba(99, 102, 241, 0.4)) drop-shadow(0 0 80px rgba(6, 182, 212, 0.2));
-            animation: logoFloat 5s ease-in-out infinite;
-        }
-
-        @keyframes logoFloat {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-10px) scale(1.03); }
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 900;
-            letter-spacing: -1px;
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
             line-height: 1.1;
+            letter-spacing: -1.5px;
             margin-bottom: 1.5rem;
         }
 
-        .hero h1 .gradient-text {
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent) 50%, var(--primary-light) 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer 3s linear infinite;
+        .hero-text h1 em {
+            font-style: normal;
+            color: var(--accent);
         }
 
-        @keyframes shimmer {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
-
-        .hero p {
-            font-size: 1.2rem;
+        .hero-text p {
+            font-size: 1.125rem;
             color: var(--text-secondary);
-            max-width: 560px;
-            margin: 0 auto 2.5rem;
-            line-height: 1.8;
+            max-width: 480px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
         }
 
         .hero-actions {
             display: flex;
             gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
+            align-items: center;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.875rem 2rem;
-            border-radius: 12px;
+            padding: 0.875rem 1.75rem;
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.925rem;
             text-decoration: none;
-            transition: all 0.3s;
+            transition: all 0.2s;
             cursor: pointer;
             border: none;
             font-family: inherit;
         }
 
         .btn-primary {
-            background: var(--primary);
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            background: var(--accent);
+            color: var(--bg);
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+            opacity: 0.85;
+            transform: translateY(-1px);
         }
 
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
+        .btn-ghost {
+            background: transparent;
             color: var(--text);
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border);
         }
 
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--text-dim);
-            transform: translateY(-2px);
+        .btn-ghost:hover {
+            border-color: var(--border-hover);
         }
 
-        .btn svg {
-            width: 18px;
-            height: 18px;
-        }
+        .btn svg { width: 18px; height: 18px; }
 
-        .hero-availability {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .hero-availability .dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--green);
-            animation: blink 2s ease-in-out infinite;
-            flex-shrink: 0;
-        }
-
-        /* ═══ SCROLL INDICATOR ═══ */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
+        .hero-visual {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-dim);
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            animation: fadeInUp 1s ease-out 1s both;
+            gap: 1rem;
         }
 
-        .scroll-indicator .mouse {
-            width: 24px;
-            height: 38px;
-            border: 2px solid var(--text-dim);
+        .hero-card {
+            background: var(--bg-raised);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            position: relative;
+            padding: 1.5rem;
         }
 
-        .scroll-indicator .mouse::before {
-            content: '';
-            position: absolute;
-            top: 6px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 8px;
-            background: var(--text-dim);
-            border-radius: 2px;
-            animation: scrollDown 1.5s ease-in-out infinite;
+        .hero-card-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
         }
 
-        @keyframes scrollDown {
-            0% { opacity: 1; transform: translateX(-50%) translateY(0); }
-            100% { opacity: 0; transform: translateX(-50%) translateY(12px); }
+        .hero-card-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
         }
 
-        /* ═══ SECTIONS COMMON ═══ */
+        .hero-card-value .accent { color: var(--accent); }
+
+        .hero-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .hero-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .hero-stack span {
+            font-size: 0.8rem;
+            padding: 0.25rem 0.625rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+
+        /* ── SECTIONS ── */
         section {
-            padding: 6rem 2rem;
-            position: relative;
+            padding: 7rem 2rem;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1120px;
             margin: 0 auto;
         }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-label {
-            display: inline-block;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--primary-light);
+        .section-eyebrow {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.75rem;
         }
 
         .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
+            font-size: 2.25rem;
+            font-weight: 700;
             letter-spacing: -0.5px;
             margin-bottom: 1rem;
             line-height: 1.2;
         }
 
-        .section-subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 550px;
-            margin: 0 auto;
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 520px;
             line-height: 1.7;
         }
 
-        /* ═══ SERVICES ═══ */
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        /* ── SERVICES ── */
         #servicios {
-            background: var(--bg-section);
             border-top: 1px solid var(--border);
+            background: var(--bg-raised);
         }
 
         .services-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        .service-card {
-            background: var(--bg-card);
+            gap: 1px;
+            background: var(--border);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.4s;
-            position: relative;
+            border-radius: 12px;
             overflow: hidden;
         }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            opacity: 0;
-            transition: opacity 0.4s;
+        .service-item {
+            background: var(--bg-raised);
+            padding: 2rem;
+            transition: background 0.2s;
         }
 
-        .service-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--border-light);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        .service-item:hover {
+            background: var(--bg-surface);
         }
 
-        .service-card:hover::before {
-            opacity: 1;
-        }
-
-        .service-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+        .service-item h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-bottom: 1.25rem;
-            font-size: 1.3rem;
+            gap: 0.5rem;
         }
 
-        .service-icon.blue { background: rgba(99, 102, 241, 0.15); color: var(--primary-light); }
-        .service-icon.cyan { background: rgba(6, 182, 212, 0.15); color: var(--accent); }
-        .service-icon.green { background: rgba(16, 185, 129, 0.15); color: var(--green); }
-        .service-icon.amber { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
-        .service-icon.rose { background: rgba(244, 63, 94, 0.15); color: var(--rose); }
-        .service-icon.purple { background: rgba(168, 85, 247, 0.15); color: #A855F7; }
-
-        .service-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+        .service-item h3 .ico {
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            flex-shrink: 0;
         }
 
-        .service-card p {
+        .service-item p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             line-height: 1.6;
         }
 
-        /* ═══ PROCESS ═══ */
+        /* ── PROCESS ── */
         #proceso {
-            background: var(--bg-dark);
             border-top: 1px solid var(--border);
         }
 
-        .process-grid {
+        .process-list {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
+            gap: 0;
+        }
+
+        .process-item {
+            padding: 0 2rem;
             position: relative;
         }
 
-        .process-grid::before {
+        .process-item:not(:last-child)::after {
             content: '';
             position: absolute;
-            top: 40px;
-            left: 12.5%;
-            right: 12.5%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--accent), var(--green), var(--amber));
-            opacity: 0.3;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: var(--border);
         }
 
-        .process-step {
-            text-align: center;
-            position: relative;
-        }
+        .process-item:first-child { padding-left: 0; }
+        .process-item:last-child { padding-right: 0; }
 
-        .process-number {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.25rem;
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #fff;
-            position: relative;
-            z-index: 1;
-        }
-
-        .process-step:nth-child(1) .process-number {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
-        }
-
-        .process-step:nth-child(2) .process-number {
-            background: linear-gradient(135deg, var(--accent), #0891B2);
-            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
-        }
-
-        .process-step:nth-child(3) .process-number {
-            background: linear-gradient(135deg, var(--green), #059669);
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
-        }
-
-        .process-step:nth-child(4) .process-number {
-            background: linear-gradient(135deg, var(--amber), #D97706);
-            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
-        }
-
-        .process-step h3 {
-            font-size: 1.05rem;
+        .process-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
             font-weight: 700;
+            color: var(--accent);
+            opacity: 0.4;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .process-item h3 {
+            font-size: 1rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
-        .process-step p {
+        .process-item p {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.875rem;
             line-height: 1.6;
-            max-width: 220px;
-            margin: 0 auto;
         }
 
-        /* ═══ STATS ═══ */
-        .stats-bar {
-            background: var(--bg-section);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 3rem 2rem;
-        }
-
-        .stats-grid {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary-light), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-            font-weight: 500;
-        }
-
-        /* ═══ PROJECTS ═══ */
+        /* ── PROJECTS ── */
         #proyectos {
-            background: var(--bg-dark);
-        }
-
-        .projects-list {
-            display: flex;
-            flex-direction: column;
-            gap: 4rem;
+            border-top: 1px solid var(--border);
+            background: var(--bg-raised);
         }
 
         .project {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 4rem;
             align-items: center;
+            margin-bottom: 6rem;
         }
+
+        .project:last-child { margin-bottom: 0; }
 
         .project:nth-child(even) {
-            direction: rtl;
+            grid-template-columns: 0.9fr 1.1fr;
         }
 
-        .project:nth-child(even) > * {
-            direction: ltr;
-        }
+        .project:nth-child(even) .project-preview { order: 2; }
+        .project:nth-child(even) .project-info { order: 1; }
 
         .project-preview {
-            position: relative;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid var(--border-light);
-            background: var(--bg-card);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            transition: transform 0.4s, box-shadow 0.4s;
+            border: 1px solid var(--border);
+            background: var(--bg-surface);
+            transition: transform 0.3s;
         }
 
         .project-preview:hover {
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            transform: translateY(-4px);
         }
 
         .browser-bar {
@@ -708,301 +481,226 @@
             align-items: center;
             gap: 6px;
             padding: 10px 14px;
-            background: #1a1f2e;
+            background: #0d0d0d;
             border-bottom: 1px solid var(--border);
         }
 
         .browser-dot {
-            width: 10px;
-            height: 10px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
         }
 
-        .browser-dot.red { background: #FF5F57; }
-        .browser-dot.yellow { background: #FEBC2E; }
-        .browser-dot.green { background: #28C840; }
+        .browser-dot.r { background: #ff5f57; }
+        .browser-dot.y { background: #febc2e; }
+        .browser-dot.g { background: #28c840; }
 
         .browser-url {
             flex: 1;
             margin-left: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 6px;
-            padding: 4px 12px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 4px;
+            padding: 3px 10px;
             font-size: 0.7rem;
-            color: var(--text-dim);
-            font-family: 'Inter', monospace;
+            color: var(--text-muted);
+            font-family: 'Space Grotesk', monospace;
         }
 
-        .project-screenshot {
+        .project-screenshot img {
             width: 100%;
-            height: calc(100% - 38px);
-            position: relative;
-            overflow: hidden;
-            background: var(--bg-card);
-        }
-
-        .screenshot-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: top center;
             display: block;
-            transition: transform 0.6s ease;
         }
 
-        .project-preview:hover .screenshot-img {
-            transform: scale(1.03);
-        }
-
-        /* Project info */
-        .project-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.3rem 0.75rem;
-            border-radius: 100px;
-            font-size: 0.75rem;
+        .project-info .tag {
+            display: inline-block;
+            font-size: 0.7rem;
             font-weight: 600;
-            width: fit-content;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
             margin-bottom: 1rem;
         }
 
-        .project-status.live {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--green);
-            border: 1px solid rgba(16, 185, 129, 0.2);
+        .tag-live {
+            background: rgba(40,200,64,0.1);
+            color: #28c840;
+            border: 1px solid rgba(40,200,64,0.2);
         }
 
-        .project-status.live .status-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--green);
-            animation: blink 2s ease-in-out infinite;
-        }
-
-        .project-status.private {
-            background: rgba(168, 85, 247, 0.1);
-            color: #A855F7;
-            border: 1px solid rgba(168, 85, 247, 0.2);
+        .tag-private {
+            background: rgba(168,85,247,0.1);
+            color: #a855f7;
+            border: 1px solid rgba(168,85,247,0.2);
         }
 
         .project-info h3 {
             font-size: 1.75rem;
-            font-weight: 800;
+            font-weight: 700;
             margin-bottom: 0.75rem;
             letter-spacing: -0.5px;
         }
 
         .project-info > p {
-            color: var(--text-muted);
-            font-size: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
             margin-bottom: 1.5rem;
             line-height: 1.7;
         }
 
-        .project-tech {
+        .tech-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.75rem;
+            gap: 0.4rem;
+            margin-bottom: 1.5rem;
         }
 
-        .tech-tag {
-            padding: 0.3rem 0.75rem;
-            background: rgba(99, 102, 241, 0.08);
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            color: var(--primary-light);
-            border-radius: 8px;
-            font-size: 0.8rem;
+        .tech-list span {
+            padding: 0.25rem 0.625rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            border-radius: 4px;
+            font-size: 0.775rem;
             font-weight: 500;
         }
 
-        .project-features {
+        .features-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 1.75rem;
+            gap: 0.4rem;
+            margin-bottom: 1.5rem;
         }
 
-        .project-features li {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
+        .features-list li {
+            font-size: 0.875rem;
             color: var(--text-secondary);
+            padding-left: 1.25rem;
+            position: relative;
         }
 
-        .project-features li svg {
-            width: 16px;
-            height: 16px;
-            color: var(--green);
-            flex-shrink: 0;
+        .features-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.55em;
+            width: 6px;
+            height: 6px;
+            border-radius: 1px;
+            background: var(--accent);
+            opacity: 0.6;
         }
 
         .project-link {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            color: var(--accent);
+            gap: 0.4rem;
+            color: var(--text);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: gap 0.3s, color 0.3s;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+            transition: border-color 0.2s;
         }
 
         .project-link:hover {
-            gap: 0.85rem;
-            color: var(--accent-light);
+            border-color: var(--text);
         }
 
-        .project-link svg {
-            width: 18px;
-            height: 18px;
-        }
+        .project-link svg { width: 14px; height: 14px; }
 
-        /* ═══ TEAM ═══ */
+        /* ── TEAM ── */
         #equipo {
-            background: var(--bg-section);
             border-top: 1px solid var(--border);
         }
 
-        .team-grid {
+        .team-layout {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
         }
 
-        .team-card {
-            background: var(--bg-card);
+        .team-text p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-people {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            background: var(--border);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            transition: all 0.4s;
-            position: relative;
+            border-radius: 12px;
             overflow: hidden;
         }
 
-        .team-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            opacity: 0.05;
+        .team-person {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            background: var(--bg-raised);
+            transition: background 0.2s;
         }
 
-        .team-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--border-light);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        .team-person:hover {
+            background: var(--bg-surface);
         }
 
-        .avatar {
-            width: 80px;
-            height: 80px;
+        .team-avatar {
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #fff;
-            margin: 0 auto 1.25rem;
-            position: relative;
-            z-index: 1;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
-        }
-
-        .team-card h3 {
-            font-size: 1.15rem;
+            font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
-            margin-bottom: 0.25rem;
-            position: relative;
-            z-index: 1;
+            font-size: 0.875rem;
+            color: var(--accent);
+            flex-shrink: 0;
         }
 
-        .team-card .role {
-            color: var(--primary-light);
-            font-size: 0.85rem;
+        .team-person-info h4 {
+            font-size: 0.95rem;
             font-weight: 600;
-            margin-bottom: 1.25rem;
-            position: relative;
-            z-index: 1;
         }
 
-        .team-card .wa-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+        .team-person-info span {
+            font-size: 0.8rem;
             color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            background: rgba(37, 211, 102, 0.08);
-            border: 1px solid rgba(37, 211, 102, 0.15);
-            transition: all 0.3s;
-            position: relative;
-            z-index: 1;
         }
 
-        .team-card .wa-link:hover {
-            background: rgba(37, 211, 102, 0.15);
-            border-color: rgba(37, 211, 102, 0.3);
-            color: #25D366;
-        }
-
-        .team-card .wa-link svg {
-            width: 18px;
-            height: 18px;
-            fill: #25D366;
-        }
-
-        /* ═══ CTA ═══ */
-        .cta-section {
-            background: var(--bg-dark);
-            padding: 6rem 2rem;
+        /* ── CTA ── */
+        .cta {
+            border-top: 1px solid var(--border);
+            background: var(--bg-raised);
             text-align: center;
-            position: relative;
-            overflow: hidden;
         }
 
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-            max-width: 600px;
+        .cta-inner {
+            max-width: 560px;
             margin: 0 auto;
         }
 
-        .cta-content h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
+        .cta h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
             margin-bottom: 1rem;
             letter-spacing: -0.5px;
         }
 
-        .cta-content p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
+        .cta p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
             margin-bottom: 2rem;
             line-height: 1.7;
         }
@@ -1015,25 +713,23 @@
         }
 
         .btn-wa {
-            background: #25D366;
+            background: #25d366;
             color: #fff;
         }
 
         .btn-wa:hover {
-            background: #1fad53;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.3);
+            opacity: 0.85;
+            transform: translateY(-1px);
         }
 
-        /* ═══ FOOTER ═══ */
+        /* ── FOOTER ── */
         footer {
             border-top: 1px solid var(--border);
-            padding: 3rem 2rem;
-            background: var(--bg-section);
+            padding: 2rem;
         }
 
         .footer-inner {
-            max-width: 1200px;
+            max-width: 1120px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -1045,24 +741,20 @@
         .footer-brand {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.625rem;
         }
 
         .footer-brand img {
-            height: 28px;
+            height: 24px;
             width: auto;
-            border-radius: 6px;
+            border-radius: 4px;
         }
 
         .footer-brand span {
+            font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
-            font-size: 1rem;
-            letter-spacing: 1px;
-        }
-
-        .footer-copy {
-            color: var(--text-dim);
-            font-size: 0.8rem;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
         }
 
         .footer-links {
@@ -1073,124 +765,70 @@
         .footer-links a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.2s;
         }
 
-        .footer-links a:hover {
-            color: var(--text);
+        .footer-links a:hover { color: var(--text-secondary); }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 0.75rem;
         }
 
-        /* ═══ FLOATING BUTTONS ═══ */
+        /* ── FLOATING WA ── */
         .floating-wa {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 56px;
-            height: 56px;
-            background: #25D366;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 52px;
+            height: 52px;
+            background: #25d366;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-            z-index: 999;
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+            z-index: 99;
+            transition: transform 0.2s;
             text-decoration: none;
         }
 
-        .floating-wa:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
-        }
+        .floating-wa:hover { transform: scale(1.08); }
+        .floating-wa svg { width: 26px; height: 26px; }
 
-        .floating-wa svg {
-            width: 28px;
-            height: 28px;
-        }
-
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 5.5rem;
-            width: 44px;
-            height: 44px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            z-index: 999;
-            cursor: pointer;
-            transition: all 0.3s;
+        /* ── REVEAL ── */
+        .reveal {
             opacity: 0;
-            pointer-events: none;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
-        .scroll-top.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .scroll-top:hover {
-            background: var(--bg-card-hover);
-            color: var(--text);
-            transform: translateY(-2px);
-        }
-
-        .scroll-top svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* ═══ ANIMATIONS ═══ */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .fade-in.visible {
+        .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .fade-in-delay-1 { transition-delay: 0.1s; }
-        .fade-in-delay-2 { transition-delay: 0.2s; }
-        .fade-in-delay-3 { transition-delay: 0.3s; }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px) translateX(-50%); }
-            to { opacity: 1; transform: translateY(0) translateX(-50%); }
-        }
-
-        /* ═══ RESPONSIVE ═══ */
+        /* ── RESPONSIVE ── */
         @media (max-width: 1024px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .hero-text h1 { font-size: 2.75rem; }
             .project {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
-
-            .project:nth-child(even) {
-                direction: ltr;
-            }
-
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .process-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 2rem 1.5rem;
-            }
-
-            .process-grid::before {
-                display: none;
-            }
+            .project:nth-child(even) .project-preview { order: 0; }
+            .project:nth-child(even) .project-info { order: 0; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .process-list { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+            .process-item:not(:last-child)::after { display: none; }
+            .process-item { padding: 0; }
+            .team-layout { grid-template-columns: 1fr; gap: 2rem; }
         }
 
         @media (max-width: 768px) {
@@ -1200,510 +838,357 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background: rgba(11, 17, 32, 0.98);
-                backdrop-filter: blur(20px);
+                background: rgba(10,10,10,0.98);
+                backdrop-filter: blur(16px);
                 flex-direction: column;
-                padding: 0 1rem;
-                gap: 0;
+                padding: 0;
                 border-bottom: 1px solid var(--border);
                 max-height: 0;
                 overflow: hidden;
-                transition: max-height 0.35s ease, padding 0.35s ease;
+                transition: max-height 0.3s ease, padding 0.3s ease;
             }
-
-            .nav-links.active {
-                max-height: 300px;
-                padding: 1rem;
-                gap: 0.25rem;
-            }
-
-            .nav-links a {
-                padding: 0.75rem 1rem;
-                width: 100%;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .hero {
-                padding: 7rem 1.5rem 4rem;
-                min-height: auto;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.05rem;
-            }
-
-            .hero-logo {
-                width: 80px;
-            }
-
-            .hero-actions {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 100%;
-                max-width: 280px;
-                justify-content: center;
-            }
-
-            .scroll-indicator {
-                display: none;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .process-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 2rem 1rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
-            }
-
-            .stat-number {
-                font-size: 2rem;
-            }
-
-            .project {
-                gap: 1.5rem;
-            }
-
-            .project-info h3 {
-                font-size: 1.4rem;
-            }
-
-            .team-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-                margin: 0 auto;
-            }
-
-            .cta-content h2 {
-                font-size: 1.8rem;
-            }
-
-            .footer-inner {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .footer-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            section {
-                padding: 4rem 1.5rem;
-            }
+            .nav-links.active { max-height: 300px; padding: 0.75rem; }
+            .nav-links a { padding: 0.75rem 1rem; width: 100%; }
+            .menu-toggle { display: block; }
+            .hero { min-height: auto; padding: 7rem 1.5rem 4rem; }
+            .hero-text h1 { font-size: 2.25rem; }
+            .hero-actions { flex-direction: column; align-items: flex-start; }
+            .btn { width: 100%; max-width: 260px; justify-content: center; }
+            .section-title { font-size: 1.75rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .process-list { grid-template-columns: 1fr; gap: 1.5rem; }
+            section { padding: 5rem 1.5rem; }
+            .cta h2 { font-size: 1.75rem; }
+            .footer-inner { flex-direction: column; text-align: center; }
+            .footer-links { flex-wrap: wrap; justify-content: center; }
         }
 
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-        }
-
-        /* ═══ REDUCED MOTION ═══ */
         @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; }
             *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
-            }
-
-            .fade-in {
-                opacity: 1;
-                transform: none;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ═══ NAVIGATION ═══ -->
+    <!-- NAV -->
     <nav>
         <div class="nav-inner">
             <a href="#" class="nav-brand">
                 <img src="logo-nav.png" alt="Klaus">
-                KLAUS
+                <span>KLAUS</span>
             </a>
             <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')" aria-label="Menu">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
             </button>
             <ul class="nav-links">
-                <li><a href="#servicios" onclick="document.querySelector('.nav-links').classList.remove('active')">Servicios</a></li>
-                <li><a href="#proceso" onclick="document.querySelector('.nav-links').classList.remove('active')">Proceso</a></li>
-                <li><a href="#proyectos" onclick="document.querySelector('.nav-links').classList.remove('active')">Proyectos</a></li>
-                <li><a href="#equipo" onclick="document.querySelector('.nav-links').classList.remove('active')">Equipo</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#proceso">Proceso</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#equipo">Equipo</a></li>
                 <li><a href="https://wa.me/5492616414595" target="_blank" class="nav-cta">Contactar</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- ═══ HERO ═══ -->
+    <!-- HERO -->
     <section class="hero">
-        <div class="hero-bg">
-            <div class="grid-bg"></div>
-        </div>
-        <div class="hero-content">
-            <h1>Software que<br><span class="gradient-text">resuelve problemas</span></h1>
-            <p>Desarrollamos soluciones a medida: plataformas web, automatizaciones y herramientas que transforman la forma en que trabajas.</p>
-            <div class="hero-actions">
-                <a href="#proyectos" class="btn btn-primary">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                    Ver proyectos
-                </a>
-                <a href="https://wa.me/5492616414595" target="_blank" class="btn btn-secondary">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    Hablemos
-                </a>
+        <div class="hero-inner">
+            <div class="hero-text">
+                <h1>Construimos el software que tu negocio <em>necesita</em></h1>
+                <p>Plataformas web, automatizaciones y herramientas a medida. Sin templates, sin soluciones genéricas.</p>
+                <div class="hero-actions">
+                    <a href="https://wa.me/5492616414595" target="_blank" class="btn btn-primary">
+                        Hablemos de tu proyecto
+                    </a>
+                    <a href="#proyectos" class="btn btn-ghost">
+                        Ver trabajos
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17l10-10M7 7h10v10"/></svg>
+                    </a>
+                </div>
             </div>
-            <p class="hero-availability"><span class="dot"></span> Disponibles para nuevos proyectos</p>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse"></div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="hero-card-label">Lo que hacemos</div>
+                    <div class="hero-card-value">Software <span class="accent">a medida</span></div>
+                    <div class="hero-stack">
+                        <span>Web Apps</span>
+                        <span>Automatización</span>
+                        <span>Scraping</span>
+                        <span>WhatsApp</span>
+                        <span>Dashboards</span>
+                    </div>
+                </div>
+                <div class="hero-row">
+                    <div class="hero-card">
+                        <div class="hero-card-label">Proyectos</div>
+                        <div class="hero-card-value">10<span class="accent">+</span></div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="hero-card-label">Respuesta</div>
+                        <div class="hero-card-value"><span class="accent">&lt;</span>24hs</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- ═══ SERVICES ═══ -->
+    <!-- SERVICES -->
     <section id="servicios">
         <div class="container">
-            <div class="section-header fade-in">
-                <span class="section-label">Servicios</span>
+            <div class="section-header reveal">
+                <div class="section-eyebrow">Servicios</div>
                 <h2 class="section-title">Lo que hacemos</h2>
-                <p class="section-subtitle">Nos especializamos en construir soluciones tecnológicas que se adaptan a las necesidades reales de cada cliente.</p>
+                <p class="section-desc">Soluciones tecnológicas adaptadas a necesidades reales. Sin paquetes predefinidos.</p>
             </div>
-            <div class="services-grid">
-                <div class="service-card fade-in fade-in-delay-1">
-                    <div class="service-icon blue">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                    </div>
-                    <h3>Desarrollo Web</h3>
-                    <p>Sitios web y plataformas completas. E-commerce, dashboards, landing pages y aplicaciones web a medida.</p>
+            <div class="services-grid reveal">
+                <div class="service-item">
+                    <h3><span class="ico" style="background: var(--accent)"></span> Desarrollo Web</h3>
+                    <p>Sitios, plataformas, e-commerce, dashboards y aplicaciones web completas.</p>
                 </div>
-                <div class="service-card fade-in fade-in-delay-2">
-                    <div class="service-icon purple">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                    </div>
-                    <h3>Automatización</h3>
-                    <p>Automatizamos tareas repetitivas. Envío masivo de mensajes, scraping de datos, integraciones y bots.</p>
+                <div class="service-item">
+                    <h3><span class="ico" style="background: #a855f7"></span> Automatización</h3>
+                    <p>Automatizamos tareas repetitivas. Envío masivo, scraping, integraciones y bots.</p>
                 </div>
-                <div class="service-card fade-in fade-in-delay-3">
-                    <div class="service-icon cyan">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0022 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-                    </div>
-                    <h3>Software a Medida</h3>
-                    <p>Aplicaciones de escritorio y herramientas específicas para resolver problemas únicos de tu negocio.</p>
+                <div class="service-item">
+                    <h3><span class="ico" style="background: #06b6d4"></span> Software a Medida</h3>
+                    <p>Aplicaciones de escritorio y herramientas específicas para tu negocio.</p>
                 </div>
-                <div class="service-card fade-in fade-in-delay-1">
-                    <div class="service-icon green">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    </div>
-                    <h3>Scraping de Datos</h3>
-                    <p>Extracción y procesamiento de datos de múltiples fuentes. Comparadores, monitoreo y reportes automáticos.</p>
+                <div class="service-item">
+                    <h3><span class="ico" style="background: #10b981"></span> Scraping de Datos</h3>
+                    <p>Extracción y procesamiento de datos. Comparadores, monitoreo y reportes automáticos.</p>
                 </div>
-                <div class="service-card fade-in fade-in-delay-2">
-                    <div class="service-icon amber">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
-                    </div>
-                    <h3>Integración WhatsApp</h3>
-                    <p>Bots, envío masivo, notificaciones y atención al cliente automatizada por WhatsApp.</p>
+                <div class="service-item">
+                    <h3><span class="ico" style="background: #f59e0b"></span> Integración WhatsApp</h3>
+                    <p>Bots, envío masivo, notificaciones y atención automatizada por WhatsApp.</p>
                 </div>
-                <div class="service-card fade-in fade-in-delay-3">
-                    <div class="service-icon rose">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
-                    </div>
-                    <h3>Dashboards</h3>
-                    <p>Paneles de control con visualización de datos en tiempo real, autenticación y exportación.</p>
+                <div class="service-item">
+                    <h3><span class="ico" style="background: #f43f5e"></span> Dashboards</h3>
+                    <p>Paneles de control con datos en tiempo real, autenticación y exportación.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ PROCESS ═══ -->
+    <!-- PROCESS -->
     <section id="proceso">
         <div class="container">
-            <div class="section-header fade-in">
-                <span class="section-label">Proceso</span>
+            <div class="section-header reveal">
+                <div class="section-eyebrow">Proceso</div>
                 <h2 class="section-title">Cómo trabajamos</h2>
-                <p class="section-subtitle">De la idea al producto final en 4 pasos simples.</p>
+                <p class="section-desc">De la idea al producto en 4 pasos.</p>
             </div>
-            <div class="process-grid">
-                <div class="process-step fade-in fade-in-delay-1">
-                    <div class="process-number">1</div>
+            <div class="process-list reveal">
+                <div class="process-item">
+                    <div class="process-num">01</div>
                     <h3>Charla inicial</h3>
                     <p>Nos contás tu idea o problema. Entendemos qué necesitás y cómo podemos ayudarte.</p>
                 </div>
-                <div class="process-step fade-in fade-in-delay-2">
-                    <div class="process-number">2</div>
+                <div class="process-item">
+                    <div class="process-num">02</div>
                     <h3>Propuesta</h3>
                     <p>Te presentamos una solución concreta con alcance, tecnologías y tiempos estimados.</p>
                 </div>
-                <div class="process-step fade-in fade-in-delay-3">
-                    <div class="process-number">3</div>
+                <div class="process-item">
+                    <div class="process-num">03</div>
                     <h3>Desarrollo</h3>
-                    <p>Construimos el producto con entregas parciales para que veas el avance en tiempo real.</p>
+                    <p>Construimos con entregas parciales para que veas el avance en tiempo real.</p>
                 </div>
-                <div class="process-step fade-in">
-                    <div class="process-number">4</div>
-                    <h3>Entrega y soporte</h3>
+                <div class="process-item">
+                    <div class="process-num">04</div>
+                    <h3>Entrega + soporte</h3>
                     <p>Desplegamos tu solución y te acompañamos con soporte post-lanzamiento.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ STATS ═══ -->
-    <div class="stats-bar">
-        <div class="stats-grid">
-            <div class="stat fade-in">
-                <div class="stat-number" data-count="10" data-suffix="+">0</div>
-                <div class="stat-label">Proyectos entregados</div>
-            </div>
-            <div class="stat fade-in fade-in-delay-1">
-                <div class="stat-number" data-count="100" data-suffix="%">0</div>
-                <div class="stat-label">A medida</div>
-            </div>
-            <div class="stat fade-in fade-in-delay-2">
-                <div class="stat-number" data-count="24" data-suffix="hs" data-prefix="<">0</div>
-                <div class="stat-label">Tiempo de respuesta</div>
-            </div>
-            <div class="stat fade-in fade-in-delay-3">
-                <div class="stat-number" data-count="3" data-suffix="">0</div>
-                <div class="stat-label">Fundadores dedicados</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ═══ PROJECTS ═══ -->
+    <!-- PROJECTS -->
     <section id="proyectos">
         <div class="container">
-            <div class="section-header fade-in">
-                <span class="section-label">Portfolio</span>
+            <div class="section-header reveal">
+                <div class="section-eyebrow">Portfolio</div>
                 <h2 class="section-title">Proyectos destacados</h2>
-                <p class="section-subtitle">Soluciones reales que hemos construido para resolver problemas concretos.</p>
+                <p class="section-desc">Soluciones reales para problemas concretos.</p>
             </div>
 
-            <div class="projects-list">
-                <!-- MASCOTITAS -->
-                <div class="project fade-in">
-                    <div class="project-preview">
-                        <div class="browser-bar">
-                            <div class="browser-dot red"></div>
-                            <div class="browser-dot yellow"></div>
-                            <div class="browser-dot green"></div>
-                            <div class="browser-url">mascotitas.online</div>
-                        </div>
-                        <div class="project-screenshot">
-                            <picture>
-                                <source srcset="screenshot-mascotitas.webp" type="image/webp">
-                                <img src="screenshot-mascotitas.jpg" alt="Mascotitas - Tienda online de alimentos para mascotas" class="screenshot-img" loading="lazy">
-                            </picture>
-                        </div>
+            <!-- Mascotitas -->
+            <div class="project reveal">
+                <div class="project-preview">
+                    <div class="browser-bar">
+                        <div class="browser-dot r"></div>
+                        <div class="browser-dot y"></div>
+                        <div class="browser-dot g"></div>
+                        <div class="browser-url">mascotitas.online</div>
                     </div>
-                    <div class="project-info">
-                        <div class="project-status live">
-                            <span class="status-dot"></span>
-                            En producción
-                        </div>
-                        <h3>Mascotitas</h3>
-                        <p>Tienda online de alimentos para mascotas con envío a domicilio. Catálogo dinámico, carrito de compras y pedidos por WhatsApp.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">HTML/CSS/JS</span>
-                            <span class="tech-tag">E-Commerce</span>
-                            <span class="tech-tag">Google Sheets</span>
-                            <span class="tech-tag">WhatsApp</span>
-                        </div>
-                        <ul class="project-features">
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                                Catálogo con variantes de peso y precio
-                            </li>
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                                Carrito de compras con resumen por WhatsApp
-                            </li>
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                                Responsive y optimizado para móviles
-                            </li>
-                        </ul>
-                        <a href="https://mascotitas.online/" target="_blank" class="project-link">
-                            Visitar sitio
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l10-10M7 7h10v10"/></svg>
-                        </a>
+                    <div class="project-screenshot">
+                        <picture>
+                            <source srcset="screenshot-mascotitas.webp" type="image/webp">
+                            <img src="screenshot-mascotitas.jpg" alt="Mascotitas - Tienda online" loading="lazy">
+                        </picture>
                     </div>
                 </div>
-
-                <!-- HERMES -->
-                <div class="project fade-in">
-                    <div class="project-preview">
-                        <div class="browser-bar">
-                            <div class="browser-dot red"></div>
-                            <div class="browser-dot yellow"></div>
-                            <div class="browser-dot green"></div>
-                            <div class="browser-url">Hermes v8 - Desktop App</div>
-                        </div>
-                        <div class="project-screenshot">
-                            <picture>
-                                <source srcset="screenshot-hermes.webp" type="image/webp">
-                                <img src="screenshot-hermes.jpg" alt="Hermes - Sistema de automatización WhatsApp" class="screenshot-img" loading="lazy">
-                            </picture>
-                        </div>
+                <div class="project-info">
+                    <span class="tag tag-live">En producción</span>
+                    <h3>Mascotitas</h3>
+                    <p>Tienda online de alimentos para mascotas con envío a domicilio. Catálogo dinámico, carrito de compras y pedidos por WhatsApp.</p>
+                    <div class="tech-list">
+                        <span>HTML/CSS/JS</span>
+                        <span>E-Commerce</span>
+                        <span>Google Sheets</span>
+                        <span>WhatsApp</span>
                     </div>
-                    <div class="project-info">
-                        <div class="project-status private">
-                            Software privado
-                        </div>
-                        <h3>Hermes</h3>
-                        <p>Sistema de automatización avanzado para WhatsApp. Envío masivo multi-dispositivo con control en tiempo real, logging y manejo inteligente de errores.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">ADB</span>
-                            <span class="tech-tag">UIAutomator2</span>
-                            <span class="tech-tag">Multi-threading</span>
-                        </div>
-                        <ul class="project-features">
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                                Control simultáneo de múltiples dispositivos
-                            </li>
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                                Thread safety con logging completo
-                            </li>
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                                Proteccion anti-bloqueo integrada
-                            </li>
-                        </ul>
+                    <ul class="features-list">
+                        <li>Catálogo con variantes de peso y precio</li>
+                        <li>Carrito de compras con resumen por WhatsApp</li>
+                        <li>Responsive y optimizado para móviles</li>
+                    </ul>
+                    <a href="https://mascotitas.online/" target="_blank" class="project-link">
+                        Visitar sitio
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l10-10M7 7h10v10"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hermes -->
+            <div class="project reveal">
+                <div class="project-preview">
+                    <div class="browser-bar">
+                        <div class="browser-dot r"></div>
+                        <div class="browser-dot y"></div>
+                        <div class="browser-dot g"></div>
+                        <div class="browser-url">Hermes v8 - Desktop App</div>
+                    </div>
+                    <div class="project-screenshot">
+                        <picture>
+                            <source srcset="screenshot-hermes.webp" type="image/webp">
+                            <img src="screenshot-hermes.jpg" alt="Hermes - Automatización WhatsApp" loading="lazy">
+                        </picture>
                     </div>
                 </div>
+                <div class="project-info">
+                    <span class="tag tag-private">Software privado</span>
+                    <h3>Hermes</h3>
+                    <p>Sistema de automatización avanzado para WhatsApp. Envío masivo multi-dispositivo con control en tiempo real, logging y manejo inteligente de errores.</p>
+                    <div class="tech-list">
+                        <span>Python</span>
+                        <span>ADB</span>
+                        <span>UIAutomator2</span>
+                        <span>Multi-threading</span>
+                    </div>
+                    <ul class="features-list">
+                        <li>Control simultáneo de múltiples dispositivos</li>
+                        <li>Thread safety con logging completo</li>
+                        <li>Protección anti-bloqueo integrada</li>
+                    </ul>
+                </div>
+            </div>
 
-                <!-- CAR SCRAPER -->
-                <div class="project fade-in">
-                    <div class="project-preview">
-                        <div class="browser-bar">
-                            <div class="browser-dot red"></div>
-                            <div class="browser-dot yellow"></div>
-                            <div class="browser-dot green"></div>
-                            <div class="browser-url">redhawk-carscraper.easypanel.host</div>
-                        </div>
-                        <div class="project-screenshot">
-                            <picture>
-                                <source srcset="screenshot-carscraper.webp" type="image/webp">
-                                <img src="screenshot-carscraper.jpg" alt="CarScraper - Dashboard de scraping automotriz" class="screenshot-img" loading="lazy">
-                            </picture>
-                        </div>
+            <!-- Car Scraper -->
+            <div class="project reveal">
+                <div class="project-preview">
+                    <div class="browser-bar">
+                        <div class="browser-dot r"></div>
+                        <div class="browser-dot y"></div>
+                        <div class="browser-dot g"></div>
+                        <div class="browser-url">redhawk-carscraper.easypanel.host</div>
                     </div>
-                    <div class="project-info">
-                        <div class="project-status live">
-                            <span class="status-dot"></span>
-                            En producción
-                        </div>
-                        <h3>Car Scraper</h3>
-                        <p>Plataforma de scraping y comparación de vehículos de múltiples fuentes internacionales. Dashboard con autenticación, modo oscuro y exportación.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">FastAPI</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Playwright</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                        </div>
-                        <ul class="project-features">
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                                Scraping de subastas USA, Alemania y más
-                            </li>
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                                Dashboard con autenticación y roles
-                            </li>
-                            <li>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                                Comparación y exportación de datos
-                            </li>
-                        </ul>
-                        <a href="https://redhawk-carscraper.bm6z1s.easypanel.host" target="_blank" class="project-link">
-                            Visitar sitio
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l10-10M7 7h10v10"/></svg>
-                        </a>
+                    <div class="project-screenshot">
+                        <picture>
+                            <source srcset="screenshot-carscraper.webp" type="image/webp">
+                            <img src="screenshot-carscraper.jpg" alt="CarScraper - Dashboard automotriz" loading="lazy">
+                        </picture>
                     </div>
+                </div>
+                <div class="project-info">
+                    <span class="tag tag-live">En producción</span>
+                    <h3>Car Scraper</h3>
+                    <p>Plataforma de scraping y comparación de vehículos de múltiples fuentes internacionales. Dashboard con autenticación, modo oscuro y exportación.</p>
+                    <div class="tech-list">
+                        <span>FastAPI</span>
+                        <span>Python</span>
+                        <span>Playwright</span>
+                        <span>PostgreSQL</span>
+                    </div>
+                    <ul class="features-list">
+                        <li>Scraping de subastas USA, Alemania y más</li>
+                        <li>Dashboard con autenticación y roles</li>
+                        <li>Comparación y exportación de datos</li>
+                    </ul>
+                    <a href="https://redhawk-carscraper.bm6z1s.easypanel.host" target="_blank" class="project-link">
+                        Visitar sitio
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l10-10M7 7h10v10"/></svg>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ TEAM ═══ -->
+    <!-- TEAM -->
     <section id="equipo">
         <div class="container">
-            <div class="section-header fade-in">
-                <span class="section-label">Equipo</span>
-                <h2 class="section-title">Quiénes somos</h2>
-                <p class="section-subtitle">Un equipo de desarrolladores enfocado en crear soluciones que funcionen.</p>
+            <div class="team-layout">
+                <div class="team-text reveal">
+                    <div class="section-eyebrow">Equipo</div>
+                    <h2 class="section-title">Quiénes somos</h2>
+                    <p>Tres desarrolladores de Mendoza enfocados en construir software que funcione y resuelva problemas reales.</p>
+                    <p>Nos involucramos en cada proyecto de principio a fin. No delegamos, no subcontratamos.</p>
+                </div>
+                <div class="team-people reveal">
+                    <div class="team-person">
+                        <div class="team-avatar">FD</div>
+                        <div class="team-person-info">
+                            <h4>Franco Demierre</h4>
+                            <span>Fundador</span>
+                        </div>
+                    </div>
+                    <div class="team-person">
+                        <div class="team-avatar">BO</div>
+                        <div class="team-person-info">
+                            <h4>Bautista Olaiz</h4>
+                            <span>Fundador</span>
+                        </div>
+                    </div>
+                    <div class="team-person">
+                        <div class="team-avatar">BR</div>
+                        <div class="team-person-info">
+                            <h4>Bernabe Rodriguez</h4>
+                            <span>Fundador</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="team-grid">
-                <div class="team-card fade-in fade-in-delay-1">
-                    <div class="avatar">FD</div>
-                    <h3>Franco Demierre</h3>
-                    <p class="role">Fundador</p>
-                </div>
-                <div class="team-card fade-in fade-in-delay-2">
-                    <div class="avatar">BO</div>
-                    <h3>Bautista Olaiz</h3>
-                    <p class="role">Fundador</p>
-                </div>
-                <div class="team-card fade-in fade-in-delay-3">
-                    <div class="avatar">BR</div>
-                    <h3>Bernabe Rodriguez</h3>
-                    <p class="role">Fundador</p>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-inner reveal">
+                <h2>Tenés una idea? Hablemos.</h2>
+                <p>Contanos tu proyecto. Sin compromiso, respuesta en menos de 24 horas.</p>
+                <div class="cta-actions">
+                    <a href="https://wa.me/5492616414595?text=Hola%2C%20quiero%20consultar%20sobre%20un%20proyecto" target="_blank" class="btn btn-wa">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Escribinos por WhatsApp
+                    </a>
+                    <a href="mailto:contacto@klaus-software.online" class="btn btn-ghost">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+                        Enviar email
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ CTA ═══ -->
-    <section class="cta-section">
-        <div class="cta-content fade-in">
-            <h2>¿Tenés una idea?<br>Hagámosla realidad.</h2>
-            <p>Contanos tu proyecto y te decimos cómo podemos ayudarte. Sin compromiso, respuesta en menos de 24 horas.</p>
-            <div class="cta-actions">
-                <a href="https://wa.me/5492616414595?text=Hola%2C%20quiero%20consultar%20sobre%20un%20proyecto" target="_blank" class="btn btn-wa">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    Escribinos por WhatsApp
-                </a>
-                <a href="mailto:contacto@klaus-software.online" class="btn btn-secondary">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
-                    Enviar email
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ FLOATING BUTTONS ═══ -->
+    <!-- FLOATING WA -->
     <a href="https://wa.me/5492616414595?text=Hola%2C%20quiero%20consultar%20sobre%20un%20proyecto" target="_blank" class="floating-wa" aria-label="WhatsApp">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
-    <button class="scroll-top" aria-label="Volver arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
-    </button>
 
-    <!-- ═══ FOOTER ═══ -->
+    <!-- FOOTER -->
     <footer>
         <div class="footer-inner">
             <div class="footer-brand">
@@ -1721,64 +1206,32 @@
         </div>
     </footer>
 
-    <!-- ═══ SCRIPTS ═══ -->
     <script>
-        // Nav scroll effect
+        // Nav scroll
         const nav = document.querySelector('nav');
         window.addEventListener('scroll', () => {
-            nav.classList.toggle('scrolled', window.scrollY > 50);
+            nav.style.borderBottomColor = window.scrollY > 50
+                ? 'rgba(255,255,255,0.08)'
+                : 'rgba(255,255,255,0.04)';
         }, { passive: true });
 
-        // Mobile menu
+        // Mobile menu close on link click
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 document.querySelector('.nav-links').classList.remove('active');
             });
         });
 
-        // Scroll animations
+        // Reveal on scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // Scroll-to-top button visibility
-        const scrollTopBtn = document.querySelector('.scroll-top');
-        window.addEventListener('scroll', () => {
-            scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
-        }, { passive: true });
-
-        // Counter animation for stats
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const el = entry.target;
-                    const target = parseInt(el.dataset.count);
-                    const suffix = el.dataset.suffix || '';
-                    const prefix = el.dataset.prefix || '';
-                    const duration = 1500;
-                    const start = performance.now();
-
-                    function update(now) {
-                        const progress = Math.min((now - start) / duration, 1);
-                        const eased = 1 - Math.pow(1 - progress, 3);
-                        const current = Math.round(eased * target);
-                        el.textContent = prefix + current + suffix;
-                        if (progress < 1) requestAnimationFrame(update);
-                    }
-
-                    requestAnimationFrame(update);
-                    counterObserver.unobserve(el);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('.stat-number[data-count]').forEach(el => counterObserver.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 
 </body>
