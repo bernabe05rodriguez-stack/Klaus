@@ -63,6 +63,8 @@
         html {
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            scroll-padding-top: 80px;
         }
 
         body {
@@ -70,7 +72,14 @@
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
         }
+
+        a, button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        img { max-width: 100%; height: auto; }
 
         h1, h2, h3, h4 {
             font-family: 'Space Grotesk', system-ui, sans-serif;
@@ -176,7 +185,21 @@
             align-items: center;
             padding: 8rem 2rem 6rem;
             position: relative;
+            overflow: hidden;
         }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 80% 20%, rgba(200,255,0,0.06), transparent 70%),
+                radial-gradient(ellipse 50% 40% at 10% 90%, rgba(168,85,247,0.05), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-inner { position: relative; z-index: 1; }
 
         .hero-inner {
             max-width: 1120px;
@@ -511,6 +534,100 @@
             display: block;
         }
 
+        /* Mock preview for projects without screenshot */
+        .project-mock {
+            aspect-ratio: 16 / 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            padding: 2.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-mock::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 30%, var(--mock-glow, rgba(200,255,0,0.18)), transparent 70%),
+                linear-gradient(135deg, rgba(255,255,255,0.02), transparent 60%);
+            pointer-events: none;
+        }
+
+        .project-mock::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 32px 32px;
+            background-position: center center;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000, transparent 75%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000, transparent 75%);
+            pointer-events: none;
+        }
+
+        .mock-logo {
+            width: 84px;
+            height: 84px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 2.25rem;
+            letter-spacing: -1px;
+            color: var(--bg);
+            background: var(--mock-color, var(--accent));
+            box-shadow: 0 12px 32px -12px var(--mock-color, var(--accent));
+            position: relative;
+            z-index: 1;
+        }
+
+        .mock-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mock-tagline {
+            font-size: 0.825rem;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 280px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.5;
+        }
+
+        .mock-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            max-width: 320px;
+        }
+
+        .mock-chips span {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
         .project-info .tag {
             display: inline-block;
             font-size: 0.7rem;
@@ -821,6 +938,7 @@
             .project {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+                margin-bottom: 4rem;
             }
             .project:nth-child(even) .project-preview { order: 0; }
             .project:nth-child(even) .project-info { order: 0; }
@@ -829,9 +947,13 @@
             .process-item:not(:last-child)::after { display: none; }
             .process-item { padding: 0; }
             .team-layout { grid-template-columns: 1fr; gap: 2rem; }
+            .nav-inner { padding: 0 1.5rem; }
         }
 
         @media (max-width: 768px) {
+            .nav-inner { height: 60px; padding: 0 1.25rem; }
+            .nav-brand img { height: 32px; }
+            .nav-brand span { font-size: 1.1rem; letter-spacing: 1.5px; }
             .nav-links {
                 display: flex;
                 position: absolute;
@@ -840,27 +962,86 @@
                 width: 100%;
                 background: rgba(10,10,10,0.98);
                 backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
                 flex-direction: column;
                 padding: 0;
                 border-bottom: 1px solid var(--border);
                 max-height: 0;
                 overflow: hidden;
                 transition: max-height 0.3s ease, padding 0.3s ease;
+                gap: 0;
             }
-            .nav-links.active { max-height: 300px; padding: 0.75rem; }
-            .nav-links a { padding: 0.75rem 1rem; width: 100%; }
+            .nav-links.active { max-height: 360px; padding: 0.5rem 1rem 1rem; }
+            .nav-links li { width: 100%; }
+            .nav-links a {
+                padding: 0.875rem 0.75rem;
+                width: 100%;
+                font-size: 0.95rem;
+                border-radius: 8px;
+            }
+            .nav-cta {
+                margin-top: 0.5rem;
+                text-align: center;
+                padding: 0.875rem 1.25rem !important;
+            }
             .menu-toggle { display: block; }
-            .hero { min-height: auto; padding: 7rem 1.5rem 4rem; }
-            .hero-text h1 { font-size: 2.25rem; }
-            .hero-actions { flex-direction: column; align-items: flex-start; }
-            .btn { width: 100%; max-width: 260px; justify-content: center; }
-            .section-title { font-size: 1.75rem; }
+
+            .hero { min-height: auto; padding: 6rem 1.25rem 4rem; }
+            .hero-inner { gap: 2.25rem; }
+            .hero-text h1 { font-size: 2.15rem; line-height: 1.15; letter-spacing: -1px; }
+            .hero-text p { font-size: 1rem; margin-bottom: 2rem; }
+            .hero-actions { flex-direction: column; align-items: stretch; gap: 0.75rem; width: 100%; }
+            .btn { width: 100%; justify-content: center; padding: 0.95rem 1.5rem; }
+            .hero-card { padding: 1.25rem; }
+            .hero-card-value { font-size: 1.25rem; }
+            .hero-stack span { font-size: 0.75rem; padding: 0.2rem 0.55rem; }
+
+            .section-header { margin-bottom: 2.75rem; }
+            .section-title { font-size: 1.65rem; }
+            .section-desc { font-size: 0.975rem; }
+            .section-eyebrow { font-size: 0.7rem; }
+
+            section { padding: 4.5rem 1.25rem; }
+
             .services-grid { grid-template-columns: 1fr; }
+            .service-item { padding: 1.5rem; }
             .process-list { grid-template-columns: 1fr; gap: 1.5rem; }
-            section { padding: 5rem 1.5rem; }
-            .cta h2 { font-size: 1.75rem; }
-            .footer-inner { flex-direction: column; text-align: center; }
-            .footer-links { flex-wrap: wrap; justify-content: center; }
+            .process-num { font-size: 2rem; }
+
+            .project { gap: 1.5rem; margin-bottom: 3.5rem; }
+            .project-info h3 { font-size: 1.5rem; }
+            .project-info > p { font-size: 0.925rem; }
+            .browser-bar { padding: 8px 10px; }
+            .browser-url { font-size: 0.65rem; padding: 3px 8px; }
+
+            .project-mock { padding: 2rem 1.25rem; gap: 1rem; aspect-ratio: 4 / 3; }
+            .mock-logo { width: 64px; height: 64px; font-size: 1.75rem; border-radius: 16px; }
+            .mock-title { font-size: 1.25rem; }
+            .mock-tagline { font-size: 0.775rem; max-width: 240px; }
+            .mock-chips span { font-size: 0.65rem; padding: 0.2rem 0.5rem; }
+
+            .team-people { border-radius: 10px; }
+            .team-person { padding: 1rem 1.25rem; }
+            .team-avatar { width: 42px; height: 42px; font-size: 0.8rem; }
+
+            .cta h2 { font-size: 1.65rem; }
+            .cta p { font-size: 0.975rem; }
+            .cta-actions { flex-direction: column; align-items: stretch; }
+
+            .floating-wa { width: 48px; height: 48px; bottom: 1rem; right: 1rem; }
+            .floating-wa svg { width: 24px; height: 24px; }
+
+            .footer-inner { flex-direction: column; text-align: center; gap: 1.25rem; }
+            .footer-links { flex-wrap: wrap; justify-content: center; gap: 1rem 1.25rem; }
+        }
+
+        @media (max-width: 420px) {
+            .hero { padding: 5.5rem 1rem 3.5rem; }
+            .hero-text h1 { font-size: 1.9rem; }
+            .hero-row { grid-template-columns: 1fr; }
+            section { padding: 4rem 1rem; }
+            .nav-inner { padding: 0 1rem; }
+            .section-title { font-size: 1.45rem; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1014,6 +1195,44 @@
                 <p class="section-desc">Soluciones reales para problemas concretos.</p>
             </div>
 
+            <!-- Columen -->
+            <div class="project reveal">
+                <div class="project-preview">
+                    <div class="browser-bar">
+                        <div class="browser-dot r"></div>
+                        <div class="browser-dot y"></div>
+                        <div class="browser-dot g"></div>
+                        <div class="browser-url">columen.ar</div>
+                    </div>
+                    <div class="project-screenshot">
+                        <picture>
+                            <source srcset="screenshot-columen.webp" type="image/webp">
+                            <img src="screenshot-columen.jpg" alt="Columen - Estudio jurídico Mendoza" loading="lazy">
+                        </picture>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <span class="tag tag-live">En producción</span>
+                    <h3>Columen</h3>
+                    <p>Estudio jurídico y notarial en Mendoza. Landing institucional + bot WhatsApp con IA + panel de administración estilo WhatsApp Web para gestionar consultas en tiempo real.</p>
+                    <div class="tech-list">
+                        <span>Node.js</span>
+                        <span>Meta Cloud API</span>
+                        <span>WebSockets</span>
+                        <span>SQLite</span>
+                    </div>
+                    <ul class="features-list">
+                        <li>Bot WhatsApp con respuestas inteligentes</li>
+                        <li>Panel admin estilo WhatsApp Web (labels, multimedia, ticks reales)</li>
+                        <li>Backup automático y persistencia con volume mount</li>
+                    </ul>
+                    <a href="https://columen.ar/" target="_blank" class="project-link">
+                        Visitar sitio
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l10-10M7 7h10v10"/></svg>
+                    </a>
+                </div>
+            </div>
+
             <!-- Mascotitas -->
             <div class="project reveal">
                 <div class="project-preview">
@@ -1046,6 +1265,50 @@
                         <li>Responsive y optimizado para móviles</li>
                     </ul>
                     <a href="https://mascotitas.online/" target="_blank" class="project-link">
+                        Visitar sitio
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l10-10M7 7h10v10"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Guchini / TAKE -->
+            <div class="project reveal">
+                <div class="project-preview">
+                    <div class="browser-bar">
+                        <div class="browser-dot r"></div>
+                        <div class="browser-dot y"></div>
+                        <div class="browser-dot g"></div>
+                        <div class="browser-url">take-guchini.com</div>
+                    </div>
+                    <div class="project-mock" style="--mock-color:#10b981;--mock-glow:rgba(16,185,129,0.18)">
+                        <div class="mock-logo">G</div>
+                        <div class="mock-title">Guchini · TAKE</div>
+                        <div class="mock-tagline">Plataforma de pedidos online con MercadoPago, vista cocina y tracking en tiempo real.</div>
+                        <div class="mock-chips">
+                            <span>Next.js</span>
+                            <span>PostgreSQL</span>
+                            <span>MercadoPago</span>
+                            <span>WebSockets</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <span class="tag tag-live">En producción</span>
+                    <h3>Guchini · TAKE</h3>
+                    <p>Plataforma de pedidos online para múltiples locales. Checkout con MercadoPago, autenticación con Google, vista cocina en tiempo real y tracking de pedidos para el cliente.</p>
+                    <div class="tech-list">
+                        <span>Next.js</span>
+                        <span>Prisma</span>
+                        <span>PostgreSQL</span>
+                        <span>MercadoPago</span>
+                        <span>OAuth Google</span>
+                    </div>
+                    <ul class="features-list">
+                        <li>Multi-local con catálogo y precios independientes</li>
+                        <li>Vista cocina con prioridad y estados en vivo</li>
+                        <li>Pagos integrados y notificaciones automáticas</li>
+                    </ul>
+                    <a href="https://take-guchini.com/" target="_blank" class="project-link">
                         Visitar sitio
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l10-10M7 7h10v10"/></svg>
                     </a>
@@ -1121,6 +1384,45 @@
                         Visitar sitio
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l10-10M7 7h10v10"/></svg>
                     </a>
+                </div>
+            </div>
+
+            <!-- SpamHer -->
+            <div class="project reveal">
+                <div class="project-preview">
+                    <div class="browser-bar">
+                        <div class="browser-dot r"></div>
+                        <div class="browser-dot y"></div>
+                        <div class="browser-dot g"></div>
+                        <div class="browser-url">SpamHer · Desktop App</div>
+                    </div>
+                    <div class="project-mock" style="--mock-color:#f43f5e;--mock-glow:rgba(244,63,94,0.18)">
+                        <div class="mock-logo">S</div>
+                        <div class="mock-title">SpamHer</div>
+                        <div class="mock-tagline">Envío masivo dual-app por WhatsApp con round-robin entre WhatsApp Normal y Beta.</div>
+                        <div class="mock-chips">
+                            <span>Python</span>
+                            <span>WinRT</span>
+                            <span>UIA</span>
+                            <span>FastAPI</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <span class="tag tag-private">Software privado</span>
+                    <h3>SpamHer</h3>
+                    <p>Aplicación de escritorio para Windows con backend en la nube. Envío masivo de mensajes y llamadas usando dos apps de WhatsApp en paralelo con rotación automática.</p>
+                    <div class="tech-list">
+                        <span>Python</span>
+                        <span>FastAPI</span>
+                        <span>PyInstaller</span>
+                        <span>WinRT</span>
+                    </div>
+                    <ul class="features-list">
+                        <li>Round-robin entre WhatsApp Normal y Beta</li>
+                        <li>Dashboard admin con licencias y métricas</li>
+                        <li>Build .exe firmado y deploy automatizado</li>
+                    </ul>
                 </div>
             </div>
         </div>
