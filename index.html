@@ -1120,7 +1120,8 @@
                 gap: 3rem;
             }
             .hero-text h1 { font-size: 2.75rem; }
-            .project {
+            .project,
+            .project:nth-child(even) {
                 grid-template-columns: 1fr;
                 gap: 2rem;
                 margin-bottom: 4rem;
@@ -1138,7 +1139,8 @@
         @media (max-width: 900px) and (min-width: 769px) {
             .hero-inner { gap: 2.5rem; }
             .services-grid { grid-template-columns: repeat(2, 1fr); }
-            .project { gap: 2rem; }
+            .project,
+            .project:nth-child(even) { grid-template-columns: 1fr; gap: 2rem; }
         }
 
         @media (max-width: 768px) {
@@ -1150,23 +1152,26 @@
                 top: 60px;
                 left: 0;
                 right: 0;
-                bottom: 0;
+                height: calc(100vh - 60px);
                 width: 100%;
                 background: rgba(5,5,5,0.96);
                 backdrop-filter: blur(20px);
                 -webkit-backdrop-filter: blur(20px);
                 flex-direction: column;
-                padding: 0 1.5rem;
+                padding: 1.5rem 1.5rem calc(2rem + env(safe-area-inset-bottom, 0px));
                 border-bottom: 1px solid var(--border);
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.4s var(--ease-out), padding 0.4s var(--ease-out);
                 gap: 0.25rem;
                 align-items: stretch;
+                overflow-y: auto;
+                transform: translateY(-12px);
+                opacity: 0;
+                visibility: hidden;
+                transition: transform 0.35s var(--ease-out), opacity 0.3s var(--ease-out), visibility 0.3s;
             }
             .nav-links.active {
-                max-height: calc(100vh - 60px);
-                padding: 1.5rem 1.5rem calc(2rem + env(safe-area-inset-bottom, 0px));
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
             }
             .nav-links li { width: 100%; }
             .nav-links a {
@@ -1206,7 +1211,12 @@
             .process-list { grid-template-columns: 1fr; gap: 1.5rem; }
             .process-num { font-size: 2.5rem; }
 
-            .project { gap: 1.5rem; margin-bottom: 3.5rem; grid-template-columns: 1fr; }
+            .project,
+            .project:nth-child(even) {
+                gap: 1.5rem;
+                margin-bottom: 3.5rem;
+                grid-template-columns: 1fr;
+            }
             .project:nth-child(even) .project-preview { order: 0; }
             .project:nth-child(even) .project-info { order: 0; }
             .project-info > p { font-size: 0.925rem; }
