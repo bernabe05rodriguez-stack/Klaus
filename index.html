@@ -54,9 +54,8 @@
             --text-3: #6e6e73;
             --hairline: rgba(255,255,255,0.09);
             --hairline-2: rgba(255,255,255,0.16);
-            --violet: #8b7cf8;
-            --cyan: #5ad7e0;
-            --grad: linear-gradient(96deg, #a08cff 0%, #6f9bff 48%, #5ad7e0 100%);
+            --ok: #30d158;
+            --grad: linear-gradient(180deg, #ffffff 15%, #82828a 100%);
             --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
             --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
             --r: 18px;
@@ -80,10 +79,10 @@
         a, button { -webkit-tap-highlight-color: transparent; }
         img { max-width: 100%; height: auto; display: block; }
 
-        ::selection { background: rgba(139,124,248,0.4); }
+        ::selection { background: rgba(255,255,255,0.22); }
 
         :focus-visible {
-            outline: 2px solid var(--cyan);
+            outline: 2px solid var(--text);
             outline-offset: 3px;
             border-radius: 6px;
         }
@@ -209,9 +208,7 @@
         .hero-bg {
             position: absolute;
             inset: -10%;
-            background:
-                radial-gradient(ellipse 46% 34% at 50% 8%, rgba(124,108,232,0.13), transparent 70%),
-                radial-gradient(ellipse 40% 30% at 72% 100%, rgba(90,215,224,0.05), transparent 70%);
+            background: radial-gradient(ellipse 50% 38% at 50% 6%, rgba(255,255,255,0.07), transparent 70%);
             pointer-events: none;
         }
 
@@ -291,9 +288,9 @@
         .pill-dark:hover { opacity: 1; background: rgba(255,255,255,0.12); }
 
         .tlink {
-            color: var(--cyan);
+            color: var(--text);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.98rem;
             display: inline-flex;
             align-items: center;
@@ -452,123 +449,81 @@
         }
 
         /* ───────────────────────── PROYECTOS ───────────────────────── */
-        #proyectos { padding: 8rem 0 4rem; }
+        #proyectos { padding: 8rem 0; }
 
-        .case {
+        .cases {
             max-width: 1040px;
-            margin: 0 auto 5.5rem;
+            margin: 0 auto;
             padding: 0 1.5rem;
         }
-        .case:last-of-type { margin-bottom: 0; }
 
-        .case-shot {
-            border-radius: var(--r);
-            overflow: clip;
-            border: 1px solid var(--hairline);
-            background: var(--panel);
-            position: relative;
-        }
-        .case-shot::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
-            pointer-events: none;
-        }
-
-        .case-shot img {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            object-position: top center;
-            will-change: transform;
-            transform: scale(1.06);
-        }
-
-        .case-type {
-            aspect-ratio: 16 / 9;
+        .case {
             display: grid;
-            place-items: center;
-            position: relative;
-            overflow: clip;
-        }
-        .case-type::before {
-            content: attr(data-letter);
-            position: absolute;
-            font-size: 30vw;
-            font-weight: 800;
-            letter-spacing: -0.05em;
-            color: rgba(255,255,255,0.035);
-            line-height: 1;
-            user-select: none;
-        }
-        .case-type-in { text-align: center; position: relative; }
-        .case-type-in b {
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            display: block;
-        }
-        .case-type-in span {
-            color: var(--text-3);
-            font-size: 0.95rem;
-            font-weight: 500;
-            margin-top: 0.4rem;
-            display: block;
-        }
-
-        .case-meta {
-            display: flex;
+            grid-template-columns: 3.2rem 15.5rem 1fr auto;
+            gap: 2rem;
             align-items: baseline;
-            justify-content: space-between;
-            gap: 1.5rem;
-            padding: 1.5rem 0.4rem 0;
-            flex-wrap: wrap;
+            padding: 2.2rem 0.4rem;
+            border-top: 1px solid var(--hairline);
+        }
+        .case:last-child { border-bottom: 1px solid var(--hairline); }
+
+        .case-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-3);
+            letter-spacing: 0.08em;
+            font-variant-numeric: tabular-nums;
         }
 
-        .case-meta h3 {
-            font-size: 1.35rem;
+        .case-name h3 {
+            font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: -0.02em;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
+            line-height: 1.15;
         }
 
-        .case-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--c, var(--cyan));
-            flex-shrink: 0;
-        }
-
-        .case-meta p {
-            color: var(--text-2);
-            font-size: 0.95rem;
-            max-width: 560px;
-            flex: 1 1 380px;
-        }
-
-        .case-right {
-            display: flex;
-            align-items: center;
-            gap: 1.1rem;
-            flex-shrink: 0;
-        }
-
-        .case-tag {
+        .case-name span {
+            display: block;
+            margin-top: 0.35rem;
             font-size: 0.72rem;
             font-weight: 600;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--text-3);
-            border: 1px solid var(--hairline);
-            border-radius: 999px;
-            padding: 0.28rem 0.7rem;
+        }
+
+        .case-desc {
+            color: var(--text-2);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            max-width: 480px;
+        }
+
+        .case-side {
+            display: flex;
+            align-items: center;
+            gap: 1.3rem;
+            justify-self: end;
+        }
+
+        .case-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-3);
             white-space: nowrap;
         }
+        .case-status::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--text-3);
+        }
+        .case-status.live { color: var(--text-2); }
+        .case-status.live::before { background: var(--ok); }
 
         /* ───────────────────────── PROCESO ───────────────────────── */
         #proceso { padding: 8rem 0; }
@@ -656,7 +611,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse 50% 55% at 50% 110%, rgba(124,108,232,0.14), transparent 70%);
+            background: radial-gradient(ellipse 55% 55% at 50% 115%, rgba(255,255,255,0.08), transparent 70%);
             pointer-events: none;
         }
 
@@ -769,6 +724,9 @@
         @media (max-width: 900px) {
             .svc-grid { grid-template-columns: repeat(2, 1fr); }
             .steps { grid-template-columns: repeat(2, 1fr); }
+            .case { grid-template-columns: 1fr auto; gap: 0.8rem 1.5rem; }
+            .case-num { display: none; }
+            .case-desc { grid-column: 1 / -1; max-width: 560px; }
         }
 
         @media (max-width: 768px) {
@@ -816,8 +774,7 @@
 
             .manifesto { padding: 12vh 1.5rem; }
 
-            #servicios, #proceso, #equipo { padding: 5rem 0; }
-            #proyectos { padding: 5rem 0 2rem; }
+            #servicios, #proceso, #equipo, #proyectos { padding: 5rem 0; }
             .sec-head { padding-bottom: 2.5rem; }
 
             .svc-grid { grid-template-columns: 1fr; }
@@ -828,10 +785,14 @@
             .stats-in { gap: 1.2rem; }
             .stat span { font-size: 0.78rem; }
 
-            .case { margin-bottom: 4rem; }
-            .case-shot img { aspect-ratio: 4 / 3; }
-            .case-type { aspect-ratio: 4 / 3; }
-            .case-meta { padding-top: 1.1rem; }
+            .case {
+                grid-template-columns: 1fr;
+                gap: 0.7rem;
+                padding: 1.7rem 0.2rem;
+            }
+            .case-num { display: none; }
+            .case-desc { max-width: none; }
+            .case-side { justify-self: start; margin-top: 0.3rem; }
 
             .steps { grid-template-columns: 1fr; gap: 1.8rem; }
 
@@ -852,7 +813,6 @@
             .manifesto .w.hl { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
             .hero-hint { animation: none; }
             .hero-in { transform: none !important; opacity: 1 !important; }
-            .case-shot img { transform: none !important; }
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
                 transition-duration: 0.01ms !important;
@@ -969,109 +929,83 @@
             <p class="sec-sub">Soluciones que hoy están funcionando para clientes reales.</p>
         </div>
 
-        <article class="case rv" style="--c:#d4a017">
-            <div class="case-shot">
-                <picture>
-                    <source srcset="screenshot-columen.webp" type="image/webp">
-                    <img src="screenshot-columen.jpg" alt="Columen — estudio jurídico y notarial en Mendoza" loading="lazy" width="1280" height="800" data-parallax>
-                </picture>
-            </div>
-            <div class="case-meta">
-                <h3><span class="case-dot"></span>Columen</h3>
-                <p>Estudio jurídico y notarial. Landing institucional, bot de WhatsApp con IA y panel de administración en tiempo real.</p>
-                <div class="case-right">
-                    <span class="case-tag">En producción</span>
+        <div class="cases">
+            <article class="case rv" style="--d:0ms">
+                <div class="case-num">01</div>
+                <div class="case-name">
+                    <h3>Columen</h3>
+                    <span>Plataforma web + IA</span>
+                </div>
+                <p class="case-desc">Estudio jurídico y notarial. Landing institucional, bot de WhatsApp con IA y panel de administración en tiempo real.</p>
+                <div class="case-side">
+                    <span class="case-status live">En producción</span>
                     <a href="https://columen.ar/" target="_blank" rel="noopener" class="tlink">Visitar</a>
                 </div>
-            </div>
-        </article>
+            </article>
 
-        <article class="case rv" style="--c:#e07a3c">
-            <div class="case-shot">
-                <picture>
-                    <source srcset="screenshot-mascotitas.webp" type="image/webp">
-                    <img src="screenshot-mascotitas.jpg" alt="Mascotitas — tienda online de alimentos para mascotas" loading="lazy" width="1280" height="800" data-parallax>
-                </picture>
-            </div>
-            <div class="case-meta">
-                <h3><span class="case-dot"></span>Mascotitas</h3>
-                <p>Tienda online con catálogo dinámico, carrito de compras y pedidos directos por WhatsApp.</p>
-                <div class="case-right">
-                    <span class="case-tag">En producción</span>
+            <article class="case rv" style="--d:50ms">
+                <div class="case-num">02</div>
+                <div class="case-name">
+                    <h3>Mascotitas</h3>
+                    <span>Tienda online</span>
+                </div>
+                <p class="case-desc">E-commerce con catálogo dinámico, carrito de compras y pedidos directos por WhatsApp.</p>
+                <div class="case-side">
+                    <span class="case-status live">En producción</span>
                     <a href="https://mascotitas.online/" target="_blank" rel="noopener" class="tlink">Visitar</a>
                 </div>
-            </div>
-        </article>
+            </article>
 
-        <article class="case rv" style="--c:#10b981">
-            <div class="case-shot">
-                <div class="case-type" data-letter="T">
-                    <div class="case-type-in">
-                        <b>Guchini · TAKE</b>
-                        <span>Pedidos online · MercadoPago · vista cocina en vivo</span>
-                    </div>
+            <article class="case rv" style="--d:100ms">
+                <div class="case-num">03</div>
+                <div class="case-name">
+                    <h3>Guchini · TAKE</h3>
+                    <span>Pedidos online</span>
                 </div>
-            </div>
-            <div class="case-meta">
-                <h3><span class="case-dot"></span>Guchini · TAKE</h3>
-                <p>Plataforma de pedidos para múltiples locales: checkout con MercadoPago, vista cocina en tiempo real y tracking para el cliente.</p>
-                <div class="case-right">
-                    <span class="case-tag">En producción</span>
+                <p class="case-desc">Plataforma de pedidos para múltiples locales: checkout con MercadoPago, vista cocina en tiempo real y tracking para el cliente.</p>
+                <div class="case-side">
+                    <span class="case-status live">En producción</span>
                     <a href="https://take-guchini.com/" target="_blank" rel="noopener" class="tlink">Visitar</a>
                 </div>
-            </div>
-        </article>
+            </article>
 
-        <article class="case rv" style="--c:#5a8df2">
-            <div class="case-shot">
-                <picture>
-                    <source srcset="screenshot-hermes.webp" type="image/webp">
-                    <img src="screenshot-hermes.jpg" alt="Hermes — automatización de WhatsApp multi-dispositivo" loading="lazy" width="1280" height="800" data-parallax>
-                </picture>
-            </div>
-            <div class="case-meta">
-                <h3><span class="case-dot"></span>Hermes</h3>
-                <p>Automatización avanzada de WhatsApp: envío masivo multi-dispositivo con control en tiempo real y protección anti-bloqueo.</p>
-                <div class="case-right">
-                    <span class="case-tag">Software privado</span>
+            <article class="case rv" style="--d:150ms">
+                <div class="case-num">04</div>
+                <div class="case-name">
+                    <h3>Hermes</h3>
+                    <span>Automatización WhatsApp</span>
                 </div>
-            </div>
-        </article>
+                <p class="case-desc">Envío masivo multi-dispositivo con control en tiempo real, logging completo y protección anti-bloqueo.</p>
+                <div class="case-side">
+                    <span class="case-status">Software privado</span>
+                </div>
+            </article>
 
-        <article class="case rv" style="--c:#5ad7e0">
-            <div class="case-shot">
-                <picture>
-                    <source srcset="screenshot-carscraper.webp" type="image/webp">
-                    <img src="screenshot-carscraper.jpg" alt="Car Scraper — comparador de vehículos de múltiples fuentes" loading="lazy" width="1280" height="800" data-parallax>
-                </picture>
-            </div>
-            <div class="case-meta">
-                <h3><span class="case-dot"></span>Car Scraper</h3>
-                <p>Scraping y comparación de vehículos de subastas internacionales, con dashboard, roles y exportación.</p>
-                <div class="case-right">
-                    <span class="case-tag">En producción</span>
+            <article class="case rv" style="--d:200ms">
+                <div class="case-num">05</div>
+                <div class="case-name">
+                    <h3>Car Scraper</h3>
+                    <span>Datos &amp; scraping</span>
+                </div>
+                <p class="case-desc">Scraping y comparación de vehículos de subastas internacionales, con dashboard, roles y exportación.</p>
+                <div class="case-side">
+                    <span class="case-status live">En producción</span>
                     <a href="https://redhawk-carscraper.bm6z1s.easypanel.host" target="_blank" rel="noopener" class="tlink">Visitar</a>
                 </div>
-            </div>
-        </article>
+            </article>
 
-        <article class="case rv" style="--c:#f43f5e">
-            <div class="case-shot">
-                <div class="case-type" data-letter="S">
-                    <div class="case-type-in">
-                        <b>SpamHer</b>
-                        <span>Envío masivo dual-app · WhatsApp Desktop · Windows</span>
-                    </div>
+            <article class="case rv" style="--d:250ms">
+                <div class="case-num">06</div>
+                <div class="case-name">
+                    <h3>SpamHer</h3>
+                    <span>Escritorio Windows</span>
                 </div>
-            </div>
-            <div class="case-meta">
-                <h3><span class="case-dot"></span>SpamHer</h3>
-                <p>Aplicación de escritorio para envío masivo con dos instancias de WhatsApp en paralelo y rotación automática.</p>
-                <div class="case-right">
-                    <span class="case-tag">Software privado</span>
+                <p class="case-desc">Aplicación de escritorio para envío masivo con dos instancias de WhatsApp en paralelo y rotación automática.</p>
+                <div class="case-side">
+                    <span class="case-status">Software privado</span>
                 </div>
-            </div>
-        </article>
+            </article>
+        </div>
     </section>
 
     <!-- PROCESO -->
@@ -1108,8 +1042,8 @@
     <section id="equipo" aria-labelledby="equipo-t">
         <div class="sec-head rv">
             <div class="kicker">Equipo</div>
-            <h2 class="sec-title" id="equipo-t">Tres fundadores, cero intermediarios</h2>
-            <p class="sec-sub">Nos involucramos en cada proyecto de principio a fin. No delegamos, no subcontratamos.</p>
+            <h2 class="sec-title" id="equipo-t">Quiénes somos</h2>
+            <p class="sec-sub">Tres desarrolladores en Mendoza. El que te responde el WhatsApp es el mismo que escribe tu código.</p>
         </div>
         <ul class="people">
             <li class="person rv" style="--d:0ms"><b>Franco Demierre</b><span>Fundador</span></li>
@@ -1240,12 +1174,11 @@
         }, { threshold: 0.6 });
         document.querySelectorAll('[data-count]').forEach(function (el) { cio.observe(el); });
 
-        /* Motor de scroll: hero shrink + manifiesto + parallax */
+        /* Motor de scroll: hero shrink + manifiesto */
         var heroTrack = document.querySelector('.hero-track');
         var heroIn = document.getElementById('hero-in');
         var heroHint = document.querySelector('.hero-hint');
         var fab = document.getElementById('fab');
-        var parallaxImgs = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
         var ticking = false;
 
         function update() {
@@ -1274,15 +1207,6 @@
                         words[i].classList.toggle('on', i < lit);
                     }
                 }
-            }
-
-            /* Parallax suave en screenshots */
-            for (var j = 0; j < parallaxImgs.length; j++) {
-                var img = parallaxImgs[j];
-                var b = img.getBoundingClientRect();
-                if (b.bottom < -100 || b.top > vh + 100) { continue; }
-                var center = (b.top + b.height / 2 - vh / 2) / vh;
-                img.style.transform = 'scale(1.06) translateY(' + (center * -3.2) + '%)';
             }
         }
 
