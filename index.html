@@ -21,7 +21,7 @@
         "@type": "Organization",
         "name": "Klaus Software",
         "url": "https://klaus-software.online",
-        "logo": "https://klaus-software.online/logo-nav.png",
+        "logo": "https://klaus-software.online/logo-mark.png",
         "description": "Desarrollo de software a medida. Automatización, plataformas web y herramientas que resuelven problemas reales.",
         "address": {
             "@type": "PostalAddress",
@@ -218,17 +218,20 @@
             will-change: transform, opacity;
         }
 
+        .hero-logo {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 1.6rem;
+            filter: drop-shadow(0 10px 32px rgba(255,255,255,0.22));
+        }
+
         .hero-eyebrow {
             font-size: 0.85rem;
             font-weight: 600;
             color: var(--text-2);
             letter-spacing: 0.02em;
             margin-bottom: 1.4rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
         }
-        .hero-eyebrow img { width: 20px; height: 20px; }
 
         .hero h1 {
             font-size: clamp(2.9rem, 8.5vw, 6.4rem);
@@ -615,6 +618,18 @@
             pointer-events: none;
         }
 
+        .cta-mark {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -54%);
+            width: min(540px, 88vw);
+            height: auto;
+            opacity: 0.055;
+            pointer-events: none;
+            user-select: none;
+        }
+
         .cta h2 {
             font-size: clamp(2.4rem, 6.5vw, 5rem);
             font-weight: 800;
@@ -768,6 +783,7 @@
             .menu-btn { display: inline-flex; }
 
             .hero-track { height: 150vh; }
+            .hero-logo { width: 58px; height: 58px; margin-bottom: 1.3rem; }
             .hero h1 { font-size: clamp(2.1rem, 9.4vw, 3.6rem); }
             .hero-actions { flex-direction: column; gap: 1.1rem; width: 100%; }
             .pill { width: 100%; max-width: 320px; }
@@ -851,10 +867,8 @@
         <section class="hero" aria-label="Presentación">
             <div class="hero-bg" aria-hidden="true"></div>
             <div class="hero-in" id="hero-in">
-                <div class="hero-eyebrow">
-                    <img src="logo-nav.png" alt="" width="20" height="20">
-                    Klaus · Mendoza, Argentina
-                </div>
+                <img src="logo-mark.png" alt="" class="hero-logo" width="72" height="72">
+                <div class="hero-eyebrow">Klaus · Mendoza, Argentina</div>
                 <h1>Software a medida.<br><span class="grad">Hecho en serio.</span></h1>
                 <p>Plataformas web, automatizaciones y herramientas construidas exactamente para tu negocio.</p>
                 <div class="hero-actions">
@@ -1040,6 +1054,7 @@
 
     <!-- CTA -->
     <section class="cta" aria-labelledby="cta-t">
+        <img src="logo-mark.png" alt="" class="cta-mark" aria-hidden="true" width="512" height="512">
         <h2 class="rv" id="cta-t">¿Tenés una idea?<br><span class="grad">Hablemos.</span></h2>
         <p class="rv" style="--d:80ms">Sin compromiso. Respuesta en menos de 24 horas.</p>
         <div class="cta-actions rv" style="--d:160ms">
