@@ -726,16 +726,47 @@
                 0 0 24px 7px rgba(141,200,255,0.32);
             transition: transform 0.5s var(--ease-out), box-shadow 0.5s, background 0.5s;
         }
-        /* aterrizó en el botón de WhatsApp: vira al verde */
+        /* aterrizó en el botón de WhatsApp: vira al verde y late */
+        .glow-ring {
+            position: absolute;
+            left: -14px;
+            top: -14px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(110,235,160,0.55);
+            opacity: 0;
+            transform: scale(0.3);
+        }
+        .glow.landed .glow-ring {
+            animation: glow-ping 2.2s var(--ease-out) infinite;
+        }
+        @keyframes glow-ping {
+            0%   { opacity: 0.8; transform: scale(0.3); }
+            70%  { opacity: 0;   transform: scale(2.1); }
+            100% { opacity: 0;   transform: scale(2.1); }
+        }
         .glow.landed .glow-dot {
-            transform: scale(1.4);
             background: #eafff2;
             box-shadow:
                 0 0 10px 2px rgba(160,255,200,0.9),
                 0 0 28px 9px rgba(48,209,88,0.35);
+            animation: glow-breathe 2.2s ease-in-out infinite;
+        }
+        @keyframes glow-breathe {
+            0%, 100% { transform: scale(1.25); }
+            50%      { transform: scale(1.55); }
         }
         .glow.landed .glow-aura {
             background: radial-gradient(circle, rgba(48,209,88,0.05), transparent 65%);
+        }
+        /* el botón recibe la luz: halo verde latiendo al mismo ritmo */
+        .pill.wa-landed {
+            animation: wa-pulse 2.2s ease-in-out infinite;
+        }
+        @keyframes wa-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(48,209,88,0); }
+            50%      { box-shadow: 0 0 26px 3px rgba(48,209,88,0.28); }
         }
 
         @media (max-width: 768px) {
@@ -860,6 +891,7 @@
     <div class="glow" id="glow" aria-hidden="true">
         <div class="glow-aura"></div>
         <div class="glow-tail"></div>
+        <div class="glow-ring"></div>
         <div class="glow-dot"></div>
     </div>
 
@@ -1179,6 +1211,7 @@
         var glowInit = false;
 
         var glowTail = glow.querySelector('.glow-tail');
+        var glowPill = document.querySelector('.cta-actions .pill');
         var glowTailLen = 0;
         var glowTailAng = 0;
 
@@ -1277,7 +1310,9 @@
                         }
                     }
                 }
-                glow.classList.toggle('landed', cy >= glowLast.y);
+                var glowLanded = cy >= glowLast.y;
+                glow.classList.toggle('landed', glowLanded);
+                if (glowPill) { glowPill.classList.toggle('wa-landed', glowLanded); }
                 glowTX = gx;
                 glowTY = gy - y;
                 if (!glowInit) {
