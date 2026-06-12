@@ -6,7 +6,7 @@ Sitio institucional de **Klaus Software** · [klaus-software.online](https://kla
 
 - Un solo `index.html` — HTML/CSS/JS vanilla, sin dependencias ni build.
 - Tipografía: Hanken Grotesk (Google Fonts). Paleta: negro + monocromo plateado.
-- Efectos scroll-driven (hero sticky, manifiesto palabra por palabra, contadores) con `IntersectionObserver` + `requestAnimationFrame`. Respeta `prefers-reduced-motion`.
+- Efectos scroll-driven (hero sticky, manifiesto palabra por palabra, luz de neón que recorre los márgenes entre waypoints por sección y aterriza con animación en el botón de WhatsApp) con `IntersectionObserver` + `requestAnimationFrame`. Respeta `prefers-reduced-motion`.
 
 ## Deploy
 
