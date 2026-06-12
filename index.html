@@ -681,70 +681,58 @@
         .fab:hover { transform: scale(1.08); }
         .fab svg { width: 24px; height: 24px; }
 
-        /* ───────────────────────── NEON BEAM ───────────────────────── */
-        /* Luz que recorre el borde izquierdo siguiendo el scroll */
-        .beam {
+        /* ───────────────────────── NEON GLOW ───────────────────────── */
+        /* Luz que recorre los bloques de la página siguiendo el scroll
+           y aterriza en el botón de WhatsApp del cierre */
+        .glow {
             position: fixed;
             top: 0;
-            bottom: 0;
-            left: clamp(14px, 3.2vw, 42px);
-            width: 0;
+            left: 0;
             z-index: 60;
             pointer-events: none;
+            will-change: transform;
         }
-        .beam::before {
-            content: '';
+        .glow-aura {
             position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            width: 1px;
-            background: linear-gradient(180deg, transparent, rgba(255,255,255,0.055) 12%, rgba(255,255,255,0.055) 88%, transparent);
-        }
-        .beam-aura {
-            position: absolute;
-            left: 50%;
-            top: -170px;
-            width: 340px;
-            height: 340px;
-            margin-left: -170px;
+            left: -130px;
+            top: -130px;
+            width: 260px;
+            height: 260px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(141,200,255,0.05), transparent 65%);
+            background: radial-gradient(circle, rgba(141,200,255,0.055), transparent 65%);
             mix-blend-mode: screen;
-            will-change: transform;
         }
-        .beam-comet {
+        .glow-dot {
             position: absolute;
-            left: -0.5px;
-            top: 0;
-            width: 2px;
-            height: 60px;
-            border-radius: 999px;
-            background: linear-gradient(180deg, transparent, rgba(141,200,255,0.85) 50%, transparent);
-            will-change: transform;
-        }
-        .beam-comet::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 4px;
-            height: 4px;
-            margin: -2px 0 0 -2px;
+            left: -2.5px;
+            top: -2.5px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
             background: #eaf5ff;
             box-shadow:
                 0 0 8px 1px rgba(170,215,255,0.9),
-                0 0 22px 6px rgba(141,200,255,0.32);
+                0 0 24px 7px rgba(141,200,255,0.32);
+            transition: transform 0.5s var(--ease-out), box-shadow 0.5s, background 0.5s;
+        }
+        /* aterrizó en el botón de WhatsApp: vira al verde */
+        .glow.landed .glow-dot {
+            transform: scale(1.4);
+            background: #eafff2;
+            box-shadow:
+                0 0 10px 2px rgba(160,255,200,0.9),
+                0 0 28px 9px rgba(48,209,88,0.35);
+        }
+        .glow.landed .glow-aura {
+            background: radial-gradient(circle, rgba(48,209,88,0.05), transparent 65%);
         }
 
         @media (max-width: 768px) {
-            .beam { left: 8px; }
-            .beam-aura {
-                width: 200px;
-                height: 200px;
-                top: -100px;
-                margin-left: -100px;
+            .glow-aura {
+                width: 180px;
+                height: 180px;
+                left: -90px;
+                top: -90px;
             }
         }
 
@@ -846,7 +834,7 @@
             .manifesto .w.hl { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
             .hero-hint { animation: none; }
             .hero-in { transform: none !important; opacity: 1 !important; }
-            .beam { display: none; }
+            .glow { display: none; }
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
                 transition-duration: 0.01ms !important;
@@ -858,9 +846,9 @@
 
     <a href="#main" class="skip-link">Saltar al contenido</a>
 
-    <div class="beam" aria-hidden="true">
-        <div class="beam-aura" id="beam-aura"></div>
-        <div class="beam-comet" id="beam-comet"></div>
+    <div class="glow" id="glow" aria-hidden="true">
+        <div class="glow-aura"></div>
+        <div class="glow-dot"></div>
     </div>
 
     <header class="nav" id="nav">
@@ -1170,22 +1158,59 @@
         var fab = document.getElementById('fab');
         var ticking = false;
 
-        /* Luz de neón: acompaña el scroll con un leve retraso */
-        var beamComet = document.getElementById('beam-comet');
-        var beamAura = document.getElementById('beam-aura');
-        var beamY = 12;
-        var beamTarget = 12;
-        var beamRaf = null;
-        function beamStep() {
-            beamY += (beamTarget - beamY) * 0.085;
-            if (Math.abs(beamTarget - beamY) < 0.4) {
-                beamY = beamTarget;
-                beamRaf = null;
-            } else {
-                beamRaf = requestAnimationFrame(beamStep);
+        /* Luz de neón: recorre los bloques de la página con el scroll
+           y aterriza en el botón de WhatsApp del cierre */
+        var glow = document.getElementById('glow');
+        var glowPts = [];
+        var glowX = 0, glowY = 0, glowTX = 0, glowTY = 0;
+        var glowRaf = null;
+        var glowInit = false;
+
+        function glowPoint(sel, side, frac) {
+            var el = document.querySelector(sel);
+            if (!el) { return null; }
+            var r = el.getBoundingClientRect();
+            var sy = window.scrollY || window.pageYOffset;
+            var x = side === 'l' ? r.left - 30
+                  : side === 'r' ? r.right + 30
+                  : r.left + r.width / 2;
+            var py = side === 't' ? sy + r.top - 16 : sy + r.top + r.height * frac;
+            return { x: clamp(x, 16, window.innerWidth - 16), y: py };
+        }
+
+        function glowMap() {
+            var sy = window.scrollY || window.pageYOffset;
+            var vh = window.innerHeight;
+            var heroP = null;
+            if (heroTrack) {
+                /* el hero es sticky: anclar al track, no al h1 */
+                var ht = heroTrack.getBoundingClientRect();
+                var h1 = document.querySelector('.hero h1');
+                var hx = h1 ? h1.getBoundingClientRect().right + 28 : window.innerWidth * 0.78;
+                heroP = { x: clamp(hx, 16, window.innerWidth - 16), y: sy + ht.top + vh * 0.5 };
             }
-            beamComet.style.transform = 'translateY(' + beamY + 'px)';
-            beamAura.style.transform = 'translateY(' + (beamY + 30) + 'px)';
+            glowPts = [
+                heroP,
+                glowPoint('.manifesto p', 'l', 0.12),
+                glowPoint('#servicios-t', 'r', 0.5),
+                glowPoint('#proyectos-t', 'l', 0.5),
+                glowPoint('#proceso-t', 'r', 0.5),
+                glowPoint('#equipo-t', 'l', 0.5),
+                glowPoint('.cta-actions .pill', 't', 0)
+            ].filter(Boolean);
+        }
+
+        function glowStep() {
+            glowX += (glowTX - glowX) * 0.09;
+            glowY += (glowTY - glowY) * 0.09;
+            if (Math.abs(glowTX - glowX) < 0.4 && Math.abs(glowTY - glowY) < 0.4) {
+                glowX = glowTX;
+                glowY = glowTY;
+                glowRaf = null;
+            } else {
+                glowRaf = requestAnimationFrame(glowStep);
+            }
+            glow.style.transform = 'translate3d(' + glowX + 'px,' + glowY + 'px,0)';
         }
 
         function update() {
@@ -1198,12 +1223,37 @@
 
             if (reduced) { return; }
 
-            /* Luz de neón: progreso de scroll → posición vertical */
-            if (beamComet) {
-                var max = document.documentElement.scrollHeight - vh;
-                var bp = max > 0 ? clamp(y / max, 0, 1) : 0;
-                beamTarget = 12 + bp * (vh - 84);
-                if (!beamRaf) { beamRaf = requestAnimationFrame(beamStep); }
+            /* Luz de neón: viaja de bloque en bloque según el scroll */
+            if (glow && glowPts.length > 1) {
+                var cy = y + vh * 0.55;
+                var glowLast = glowPts[glowPts.length - 1];
+                var gx, gy;
+                if (cy <= glowPts[0].y) {
+                    gx = glowPts[0].x;
+                    gy = glowPts[0].y;
+                } else if (cy >= glowLast.y) {
+                    gx = glowLast.x;
+                    gy = glowLast.y;
+                } else {
+                    for (var j = 0; j < glowPts.length - 1; j++) {
+                        if (cy < glowPts[j + 1].y) {
+                            var gt = (cy - glowPts[j].y) / (glowPts[j + 1].y - glowPts[j].y);
+                            gt = gt * gt * (3 - 2 * gt);
+                            gx = glowPts[j].x + (glowPts[j + 1].x - glowPts[j].x) * gt;
+                            gy = cy;
+                            break;
+                        }
+                    }
+                }
+                glow.classList.toggle('landed', cy >= glowLast.y);
+                glowTX = gx;
+                glowTY = gy - y;
+                if (!glowInit) {
+                    glowInit = true;
+                    glowX = glowTX;
+                    glowY = glowTY;
+                }
+                if (!glowRaf) { glowRaf = requestAnimationFrame(glowStep); }
             }
 
             /* Hero: se encoge y desvanece al scrollear (efecto Apple) */
@@ -1233,7 +1283,12 @@
         }
 
         window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', onScroll, { passive: true });
+        window.addEventListener('resize', function () { glowMap(); onScroll(); }, { passive: true });
+        window.addEventListener('load', function () { glowMap(); onScroll(); });
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(function () { glowMap(); onScroll(); });
+        }
+        glowMap();
         update();
 
         /* Año dinámico */
