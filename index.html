@@ -702,6 +702,17 @@
             background: radial-gradient(circle, rgba(141,200,255,0.055), transparent 65%);
             mix-blend-mode: screen;
         }
+        .glow-tail {
+            position: absolute;
+            right: 0;
+            top: -1px;
+            width: 0;
+            height: 2px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, transparent, rgba(141,200,255,0.6));
+            transform-origin: right center;
+            opacity: 0;
+        }
         .glow-dot {
             position: absolute;
             left: -2.5px;
@@ -848,6 +859,7 @@
 
     <div class="glow" id="glow" aria-hidden="true">
         <div class="glow-aura"></div>
+        <div class="glow-tail"></div>
         <div class="glow-dot"></div>
     </div>
 
@@ -1166,50 +1178,70 @@
         var glowRaf = null;
         var glowInit = false;
 
-        function glowPoint(sel, side, frac) {
+        var glowTail = glow.querySelector('.glow-tail');
+        var glowTailLen = 0;
+        var glowTailAng = 0;
+
+        function glowDocY(sel, frac) {
             var el = document.querySelector(sel);
             if (!el) { return null; }
             var r = el.getBoundingClientRect();
-            var sy = window.scrollY || window.pageYOffset;
-            var x = side === 'l' ? r.left - 30
-                  : side === 'r' ? r.right + 30
-                  : r.left + r.width / 2;
-            var py = side === 't' ? sy + r.top - 16 : sy + r.top + r.height * frac;
-            return { x: clamp(x, 16, window.innerWidth - 16), y: py };
+            return (window.scrollY || window.pageYOffset) + r.top + r.height * frac;
         }
 
         function glowMap() {
             var sy = window.scrollY || window.pageYOffset;
+            var vw = window.innerWidth;
             var vh = window.innerHeight;
-            var heroP = null;
+            /* la luz viaja por los márgenes laterales, nunca sobre el texto */
+            var lx = Math.max(14, (vw - 1040) / 4);
+            var rx = vw - lx;
+            var pts = [];
             if (heroTrack) {
-                /* el hero es sticky: anclar al track, no al h1 */
-                var ht = heroTrack.getBoundingClientRect();
-                var h1 = document.querySelector('.hero h1');
-                var hx = h1 ? h1.getBoundingClientRect().right + 28 : window.innerWidth * 0.78;
-                heroP = { x: clamp(hx, 16, window.innerWidth - 16), y: sy + ht.top + vh * 0.5 };
+                /* el hero es sticky: anclar al track */
+                pts.push({ x: rx, y: sy + heroTrack.getBoundingClientRect().top + vh * 0.5 });
             }
-            glowPts = [
-                heroP,
-                glowPoint('.manifesto p', 'l', 0.12),
-                glowPoint('#servicios-t', 'r', 0.5),
-                glowPoint('#proyectos-t', 'l', 0.5),
-                glowPoint('#proceso-t', 'r', 0.5),
-                glowPoint('#equipo-t', 'l', 0.5),
-                glowPoint('.cta-actions .pill', 't', 0)
-            ].filter(Boolean);
+            var defs = [
+                ['.manifesto p', 0.5, lx],
+                ['#servicios-t', 0.5, rx],
+                ['#proyectos-t', 0.5, lx],
+                ['#proceso-t', 0.5, rx],
+                ['#equipo-t', 0.5, lx]
+            ];
+            for (var i = 0; i < defs.length; i++) {
+                var dy = glowDocY(defs[i][0], defs[i][1]);
+                if (dy !== null) { pts.push({ x: defs[i][2], y: dy }); }
+            }
+            /* aterrizaje: justo arriba del botón de WhatsApp */
+            var pill = document.querySelector('.cta-actions .pill');
+            if (pill) {
+                var pr = pill.getBoundingClientRect();
+                pts.push({ x: pr.left + pr.width / 2, y: sy + pr.top - 16 });
+            }
+            glowPts = pts;
         }
 
         function glowStep() {
+            var px = glowX;
+            var py = glowY;
             glowX += (glowTX - glowX) * 0.09;
             glowY += (glowTY - glowY) * 0.09;
-            if (Math.abs(glowTX - glowX) < 0.4 && Math.abs(glowTY - glowY) < 0.4) {
+            var vx = glowX - px;
+            var vy = glowY - py;
+            var speed = Math.sqrt(vx * vx + vy * vy);
+            if (Math.abs(glowTX - glowX) < 0.4 && Math.abs(glowTY - glowY) < 0.4 && glowTailLen < 0.5) {
                 glowX = glowTX;
                 glowY = glowTY;
                 glowRaf = null;
             } else {
                 glowRaf = requestAnimationFrame(glowStep);
             }
+            /* cola corta: crece con la velocidad y apunta hacia atrás */
+            glowTailLen += (Math.min(34, speed * 3) - glowTailLen) * 0.18;
+            if (speed > 0.3) { glowTailAng = Math.atan2(vy, vx); }
+            glowTail.style.width = glowTailLen.toFixed(1) + 'px';
+            glowTail.style.opacity = Math.min(0.9, glowTailLen / 30).toFixed(2);
+            glowTail.style.transform = 'rotate(' + glowTailAng.toFixed(3) + 'rad)';
             glow.style.transform = 'translate3d(' + glowX + 'px,' + glowY + 'px,0)';
         }
 
