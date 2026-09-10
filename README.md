@@ -7,7 +7,7 @@ Sitio institucional de **Klaus Software** · [klaus-software.online](https://kla
 - Un solo `index.html` — HTML/CSS/JS vanilla, sin dependencias ni build.
 - Tipografía: Hanken Grotesk (Google Fonts). Paleta: negro + monocromo plateado.
 - Efectos scroll-driven (hero sticky, manifiesto palabra por palabra, luz de neón que recorre los márgenes entre waypoints por sección y aterriza con animación en el botón de WhatsApp, riel de progreso de 1px a la izquierda con un punto por sección) con `IntersectionObserver` + `requestAnimationFrame`. Respeta `prefers-reduced-motion`.
-- Portfolio: 7 proyectos (Hermes, Fidelio Web, Columen, Mascotitas, Creador de Mensajes, De puño y letra, SpamHer). Contacto: WhatsApp + `bernabe05rodriguez@gmail.com`.
+- Portfolio: 6 proyectos (Hermes, Fidelio Web, Columen, Mascotitas, Creador de Mensajes, De puño y letra), todos con link. Contacto: WhatsApp + `bernabe05rodriguez@gmail.com`.
 - El `index.html` usa CRLF: si se edita por script, normalizar saltos de línea.
 
 ## Deploy
