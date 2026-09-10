@@ -41,7 +41,7 @@
                 "image": "https://klaus-software.online/og-image.jpg",
                 "description": "Desarrollo de software a medida en Mendoza, Argentina: plataformas web, automatización, bots de WhatsApp, scraping de datos y dashboards.",
                 "slogan": "Software a medida, de principio a fin.",
-                "email": "contacto@klaus-software.online",
+                "email": "bernabe05rodriguez@gmail.com",
                 "telephone": "+54-9-261-641-4595",
                 "address": {
                     "@type": "PostalAddress",
@@ -56,7 +56,7 @@
                 "contactPoint": {
                     "@type": "ContactPoint",
                     "contactType": "sales",
-                    "email": "contacto@klaus-software.online",
+                    "email": "bernabe05rodriguez@gmail.com",
                     "telephone": "+54-9-261-641-4595",
                     "availableLanguage": "es"
                 },
@@ -828,6 +828,50 @@
             }
         }
 
+        /* ───────────────────────── RAIL ─────────────────────────
+           Un riel de 1px en el margen izquierdo: se llena con el scroll y
+           marca cada sección con un punto que se enciende al pasar. */
+        .rail {
+            position: fixed;
+            left: max(18px, calc((100vw - 1040px) / 4));
+            top: 50%;
+            transform: translateY(-50%);
+            height: min(46vh, 380px);
+            width: 1px;
+            background: var(--hairline);
+            z-index: 70;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s var(--ease);
+        }
+        .rail.show { opacity: 1; }
+        .rail-fill {
+            position: absolute;
+            left: 0; top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(245,245,247,0.9), rgba(245,245,247,0.35));
+            transform-origin: top center;
+            transform: scaleY(0);
+        }
+        .rail-dot {
+            position: absolute;
+            left: -2.5px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #000;
+            border: 1px solid var(--hairline-2);
+            transform: translateY(-50%);
+            transition: background 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s;
+        }
+        .rail-dot.on {
+            background: var(--text);
+            border-color: var(--text);
+            box-shadow: 0 0 10px 1px rgba(245,245,247,0.35);
+        }
+        @media (max-width: 1180px) { .rail { display: none; } }
+
         /* ───────────────────────── REVEAL ───────────────────────── */
         .rv {
             opacity: 0;
@@ -927,6 +971,7 @@
             .hero-hint { animation: none; }
             .hero-in { transform: none !important; opacity: 1 !important; }
             .glow { display: none; }
+            .rail { display: none; }
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
                 transition-duration: 0.01ms !important;
@@ -937,6 +982,10 @@
 <body>
 
     <a href="#main" class="skip-link">Saltar al contenido</a>
+
+    <div class="rail" id="rail" aria-hidden="true">
+        <div class="rail-fill" id="rail-fill"></div>
+    </div>
 
     <div class="glow" id="glow" aria-hidden="true">
         <div class="glow-aura"></div>
@@ -1035,12 +1084,38 @@
         <div class="sec-head rv">
             <div class="kicker">Portfolio</div>
             <h2 class="sec-title" id="proyectos-t">Proyectos destacados</h2>
-            <p class="sec-sub">Proyectos entregados y en uso.</p>
+            <p class="sec-sub">Siete proyectos entregados y en uso. Seis se pueden ver ahora mismo.</p>
         </div>
 
         <div class="cases">
             <article class="case rv" style="--d:0ms">
                 <div class="case-num">01</div>
+                <div class="case-name">
+                    <h3>Hermes</h3>
+                    <span>Aplicación Windows</span>
+                </div>
+                <p class="case-desc">Envíos masivos de WhatsApp y SMS desde celulares físicos conectados por USB. Control en tiempo real, registro completo y actualizaciones automáticas.</p>
+                <div class="case-side">
+                    <span class="case-status live">Público</span>
+                    <a href="https://elhermes.site/" target="_blank" rel="noopener" class="tlink">Visitar</a>
+                </div>
+            </article>
+
+            <article class="case rv" style="--d:50ms">
+                <div class="case-num">02</div>
+                <div class="case-name">
+                    <h3>Fidelio Web</h3>
+                    <span>Extensión de Chrome</span>
+                </div>
+                <p class="case-desc">Coordina varias líneas de WhatsApp desde el navegador: conversaciones entre ellas y publicaciones en grupos, con un panel de control en vivo.</p>
+                <div class="case-side">
+                    <span class="case-status live">Público</span>
+                    <a href="https://chromewebstore.google.com/detail/bjhljgipkoemghgkhdogoekikjkcnnoe" target="_blank" rel="noopener" class="tlink">Instalar</a>
+                </div>
+            </article>
+
+            <article class="case rv" style="--d:100ms">
+                <div class="case-num">03</div>
                 <div class="case-name">
                     <h3>Columen</h3>
                     <span>Plataforma web + IA</span>
@@ -1052,45 +1127,47 @@
                 </div>
             </article>
 
-            <article class="case rv" style="--d:50ms">
-                <div class="case-num">02</div>
+            <article class="case rv" style="--d:150ms">
+                <div class="case-num">04</div>
                 <div class="case-name">
                     <h3>Mascotitas</h3>
                     <span>Tienda online</span>
                 </div>
-                <p class="case-desc">E-commerce con catálogo dinámico, carrito de compras y pedidos directos por WhatsApp.</p>
+                <p class="case-desc">E-commerce de alimento para mascotas con catálogo administrable, carrito y pedidos directos por WhatsApp.</p>
                 <div class="case-side">
                     <span class="case-status live">Público</span>
                     <a href="https://mascotitas.online/" target="_blank" rel="noopener" class="tlink">Visitar</a>
                 </div>
             </article>
 
-            <article class="case rv" style="--d:100ms">
-                <div class="case-num">03</div>
-                <div class="case-name">
-                    <h3>Hermes</h3>
-                    <span>Automatización WhatsApp</span>
-                </div>
-                <p class="case-desc">Envío masivo multi-dispositivo con control en tiempo real, logging completo y protección anti-bloqueo.</p>
-                <div class="case-side">
-                    <span class="case-status">Privado</span>
-                </div>
-            </article>
-
-            <article class="case rv" style="--d:150ms">
-                <div class="case-num">04</div>
-                <div class="case-name">
-                    <h3>Car Scraper</h3>
-                    <span>Datos &amp; scraping</span>
-                </div>
-                <p class="case-desc">Scraping y comparación de vehículos de subastas internacionales, con dashboard, roles y exportación.</p>
-                <div class="case-side">
-                    <span class="case-status">Privado</span>
-                </div>
-            </article>
-
             <article class="case rv" style="--d:200ms">
                 <div class="case-num">05</div>
+                <div class="case-name">
+                    <h3>Creador de Mensajes</h3>
+                    <span>Herramienta web</span>
+                </div>
+                <p class="case-desc">De una planilla a cientos de mensajes personalizados en segundos, con vista previa y exportación lista para enviar. En uso por un equipo comercial de más de 200 personas.</p>
+                <div class="case-side">
+                    <span class="case-status live">Público</span>
+                    <a href="https://creador.fidelizador.online/" target="_blank" rel="noopener" class="tlink">Visitar</a>
+                </div>
+            </article>
+
+            <article class="case rv" style="--d:250ms">
+                <div class="case-num">06</div>
+                <div class="case-name">
+                    <h3>De puño y letra</h3>
+                    <span>Sitio profesional</span>
+                </div>
+                <p class="case-desc">Presencia web de una grafóloga y grafoterapeuta: ilustraciones que se dibujan con el scroll y contacto directo por WhatsApp.</p>
+                <div class="case-side">
+                    <span class="case-status live">Público</span>
+                    <a href="https://xn--depuoyletra-4db.online/" target="_blank" rel="noopener" class="tlink">Visitar</a>
+                </div>
+            </article>
+
+            <article class="case rv" style="--d:300ms">
+                <div class="case-num">07</div>
                 <div class="case-name">
                     <h3>SpamHer</h3>
                     <span>Escritorio Windows</span>
@@ -1143,7 +1220,7 @@
         <ul class="people">
             <li class="person rv" style="--d:0ms"><b>Franco Demierre</b><span>Fundador</span></li>
             <li class="person rv" style="--d:70ms"><b>Bautista Olaiz</b><span>Fundador</span></li>
-            <li class="person rv" style="--d:140ms"><b>Bernabe Rodriguez</b><span>Fundador</span></li>
+            <li class="person rv" style="--d:140ms"><b>Bernabé Rodríguez</b><span>Fundador</span></li>
         </ul>
     </section>
 
@@ -1158,7 +1235,7 @@
                 Escribinos por WhatsApp
             </a>
         </div>
-        <span class="cta-mail rv" style="--d:240ms">o por email: <a href="mailto:contacto@klaus-software.online">contacto@klaus-software.online</a></span>
+        <span class="cta-mail rv" style="--d:240ms">o por email: <a href="mailto:bernabe05rodriguez@gmail.com">bernabe05rodriguez@gmail.com</a></span>
     </section>
 
     </main>
@@ -1252,6 +1329,45 @@
         var fab = document.getElementById('fab');
         var ticking = false;
 
+        /* Riel lateral: progreso + un punto por sección */
+        var rail = document.getElementById('rail');
+        var railFill = document.getElementById('rail-fill');
+        var railSecs = [];
+        var railDots = [];
+        function railMap() {
+            var sy = window.scrollY || window.pageYOffset;
+            railSecs = [];
+            var ids = ['servicios', 'proyectos', 'proceso', 'equipo'];
+            var cta = document.querySelector('.cta');
+            ids.forEach(function (id) {
+                var el = document.getElementById(id);
+                if (el) { railSecs.push(sy + el.getBoundingClientRect().top); }
+            });
+            if (cta) { railSecs.push(sy + cta.getBoundingClientRect().top); }
+            if (!railDots.length) {
+                railSecs.forEach(function () {
+                    var d = document.createElement('div');
+                    d.className = 'rail-dot';
+                    rail.appendChild(d);
+                    railDots.push(d);
+                });
+            }
+        }
+        function railUpdate(y, vh) {
+            var docH = Math.max(1, document.documentElement.scrollHeight - vh);
+            var p = clamp(y / docH, 0, 1);
+            railFill.style.transform = 'scaleY(' + p.toFixed(4) + ')';
+            var probe = y + vh * 0.45;
+            var first = railSecs.length ? railSecs[0] : 0;
+            var last = railSecs.length ? railSecs[railSecs.length - 1] : 1;
+            for (var i = 0; i < railDots.length; i++) {
+                var t = (railSecs[i] - first) / Math.max(1, last - first);
+                railDots[i].style.top = (t * 100).toFixed(2) + '%';
+                railDots[i].classList.toggle('on', probe >= railSecs[i]);
+            }
+            rail.classList.toggle('show', y > vh * 0.5);
+        }
+
         /* Luz de neón: recorre los bloques de la página con el scroll
            y aterriza en el botón de WhatsApp del cierre */
         var glow = document.getElementById('glow');
@@ -1335,6 +1451,7 @@
 
             nav.classList.toggle('scrolled', y > 8);
             fab.classList.toggle('show', y > vh * 0.6);
+            railUpdate(y, vh);
 
             if (reduced) { return; }
 
@@ -1400,12 +1517,13 @@
         }
 
         window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', function () { glowMap(); onScroll(); }, { passive: true });
-        window.addEventListener('load', function () { glowMap(); onScroll(); });
+        window.addEventListener('resize', function () { glowMap(); railMap(); onScroll(); }, { passive: true });
+        window.addEventListener('load', function () { glowMap(); railMap(); onScroll(); });
         if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(function () { glowMap(); onScroll(); });
+            document.fonts.ready.then(function () { glowMap(); railMap(); onScroll(); });
         }
         glowMap();
+        railMap();
         update();
 
         /* Año dinámico */
