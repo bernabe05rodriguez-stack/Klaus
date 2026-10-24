@@ -24,3 +24,5 @@ GitHub Pages desde `master`. Cada push a `master` publica automáticamente en el
 | `favicon.png` | Favicon (marca blanca sobre negro redondeado) |
 | `og-image.jpg` | Imagen para compartir (1200×630) |
 | `CNAME` | Dominio custom de GitHub Pages |
+
+Reglas para agentes: `AGENTS.md`. Trampas: `LECCIONES.md`.
